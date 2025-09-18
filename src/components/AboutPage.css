@@ -1,0 +1,77 @@
+/* Page */
+.about-page {
+  padding: clamp(8px, 2vw, 24px) clamp(16px, 4vw, 56px);
+  background: #fff;
+  text-align: left;
+  font-family: "mundial-narrow-variable", sans-serif !important;
+  font-variation-settings: 'wght' 400 !important;
+  font-size: clamp(32px, 8vw, 96px) !important;
+  font-weight: 400 !important;                  /* 100 */
+}
+
+/* Headline wie Portfolio */
+.headline {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: clamp(10px, 2vw, 16px);
+  flex-wrap: wrap;
+}
+
+.title {
+  font-family: "mundial-narrow-variable", sans-serif !important;
+  font-variation-settings: 'wght' 100 !important;
+  font-size: clamp(32px, 8vw, 96px) !important;
+  font-weight: 100 !important;
+  line-height: 1.05;
+  margin: 0;
+  color: #666;
+}
+
+/* Content */
+.about-content {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: start;
+  justify-items: start;
+  gap: clamp(24px, 6vw, 72px);
+  margin-top: clamp(16px, 3vw, 40px);
+}
+
+.about-text {
+  max-width: 68ch;
+  font-family: "mundial-narrow-variable", sans-serif;                  /* font */
+  font-variation-settings: 'wght' var(--wght-body);                    /* 100 */
+  font-size: clamp(16px, 1.2vw, 22px);
+  line-height: 1.6;
+  color: #111;
+}
+
+.about-text p {
+  margin: 0 0 1.2em;
+}
+
+/* Grauer Platzhalter rechts (Quadrat) */
+.about-placeholder {
+  justify-self: end;
+  width: clamp(260px, 28vw, 480px);
+  aspect-ratio: 1 / 1;
+  background: #6c6561;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+}
+
+/* Responsiv */
+@media (max-width: 1024px) {
+  .about-content {
+    grid-template-columns: 1fr;
+    margin-top: clamp(16px, 3vw, 32px);
+  }
+  .about-placeholder {
+    justify-self: start;
+    width: min(520px, 100%);
+  }
+}
+
+
+

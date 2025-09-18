@@ -1,0 +1,77 @@
+:root {
+  --gap: clamp(14px, 2vw, 24px);
+}
+
+.portfolio {
+  position: relative;
+  padding: clamp(8px, 2vw, 24px) clamp(16px, 4vw, 56px);
+}
+
+/* Headline */
+.headline {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(10px, 2vw, 16px);
+  flex-wrap: wrap;
+}
+
+
+.title {
+  font-family: "mundial-narrow-variable", sans-serif !important;
+  font-variation-settings: 'wght' 100 !important;
+  font-size: clamp(32px, 8vw, 96px) !important;
+  font-weight: 100 !important;
+  line-height: 1.05;
+  margin: 0;
+  color: #666;
+}
+
+
+/* Grid */
+.grid {
+  margin-top: clamp(12px, 2.5vw, 24px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+}
+
+@media (max-width: 1200px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+/* Tiles */
+.tile {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f4f4f4;
+}
+
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* Start in SW */
+  filter: grayscale(100%);
+
+  /* Kein Transition auf dem Filter, nur auf dem Zoom-Effekt */
+  transition: transform 160ms ease;
+  transform: scale(1.001);
+
+  /* kleine Performance-Hilfe */
+  will-change: filter, transform;
+}
+
+.tile:hover img,
+.tile:focus-within img {
+  /* Sofort Farbe, kein Übergang */
+  filter: grayscale(0%);
+  transform: scale(1.02);
+}

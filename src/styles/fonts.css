@@ -1,0 +1,42 @@
+/* Global font setup */
+* {
+  font-family: "mundial-narrow-variable", sans-serif;
+  font-variation-settings: 'wght' 100;
+}
+
+/* Utility classes for different weights */
+.font-thin {
+  font-variation-settings: 'wght' 100;
+}
+
+.font-regular {
+  font-variation-settings: 'wght' 400;
+}
+
+.font-bold {
+  font-variation-settings: 'wght' 700;
+}
+
+.font-black {
+  font-variation-settings: 'wght' 900;
+}
+
+/* Typography classes */
+.heading-1 {
+  font-family: "mundial-narrow-variable", sans-serif;
+  font-variation-settings: 'wght' 900;
+  font-size: 2.25rem;
+  letter-spacing: -0.025em;
+}
+
+.heading-2 {
+  font-family: "mundial-narrow-variable", sans-serif;
+  font-variation-settings: 'wght' 700;
+  font-size: 1.875rem;
+}
+
+.body-text {
+  font-family: "mundial-narrow-variable", sans-serif;
+  font-variation-settings: 'wght' 100;
+  font-size: 1rem;
+}

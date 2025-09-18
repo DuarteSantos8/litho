@@ -1,0 +1,233 @@
+.litho-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  font-family: "mundial-narrow-variable", sans-serif;
+  font-variation-settings: 'wght' 100;
+  overflow: hidden;
+  position: relative;
+}
+
+.splash {
+  font-size: min(20vw, 15vh);
+  font-weight: 900;
+  color: #000000;
+  display: flex;
+  align-items: baseline;
+  letter-spacing: 0.05em;
+  width: 100vw;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+}
+
+.letter {
+  display: inline-block;
+  position: relative;
+}
+
+.i-container {
+  position: relative;
+  display: inline-block;
+  width: 0.6em;
+  height: 1em;
+}
+
+.i-stem {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0.15em;
+  background-color: #000000;
+  height: 0.525em;
+  transition: all 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.i-stem.animate {
+  transform: translateX(-50%) translateY(-0.2em);
+}
+
+.i-dot {
+  position: absolute;
+  top: 0.225em;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0.2em;
+  height: 0.2em;
+  background-color: #C94035;
+  border-radius: 50%;
+  transition: all 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  z-index: 20;
+}
+
+.i-dot.animate {
+  top: 0.85em;
+}
+
+.i-dot:not(.menu-active) {
+  animation: subtle-pulse 2s ease-in-out infinite;
+}
+
+.splash.animate .i-dot:not(.menu-active) {
+  animation: none;
+}
+
+/* Hide the dot when menu is active */
+.i-dot.menu-active {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes subtle-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 0 min(0.5vw, 0.3vh) rgba(229, 62, 62, 0.2);
+  }
+}
+
+/* Menu styles - positioned to expand from dot location */
+.menu {
+  position: fixed;
+  /* Position the menu at the same location as the animated dot */
+  top: calc(50% + 0.425em * min(20vw, 15vh));
+  left: calc(50% + 0.3em * min(20vw, 15vh));
+  transform: translate(-50%, -50%) scale(0);
+  width: min(40vw, 30vh);
+  height: min(40vw, 30vh);
+  background-color: #C94035;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 25;
+  opacity: 0;
+}
+
+.menu.open {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.menu-item {
+  color: white;
+  font-size: min(2.5vw, 2vh);
+  font-weight: 500;
+  margin: min(0.6vw, 0.4vh) 0;
+  cursor: pointer;
+  transition: all 200ms ease;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: min(0.4vw, 0.3vh) min(1vw, 0.8vh);
+  border-radius: min(1vw, 0.8vh);
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.close-btn {
+  position: absolute;
+  top: min(3vw, 2vh);
+  right: min(3vw, 2vh);
+  color: white;
+  font-size: min(4vw, 3vh);
+  cursor: pointer;
+  font-weight: 300;
+  transition: all 200ms ease;
+  width: min(6vw, 4vh);
+  height: min(6vw, 4vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+/* Background overlay when menu is open */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .splash {
+    font-size: min(18vw, 12vh);
+  }
+  .menu {
+    top: calc(50% + 0.425em * min(18vw, 12vh));
+    left: calc(50% + 0.3em * min(18vw, 12vh));
+    width: min(50vw, 35vh);
+    height: min(50vw, 35vh);
+  }
+  .menu-item {
+    font-size: min(3.5vw, 2.5vh);
+    margin: min(0.8vw, 0.6vh) 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .splash {
+    font-size: min(16vw, 10vh);
+    letter-spacing: 0.02em;
+  }
+  .menu {
+    top: calc(50% + 0.425em * min(16vw, 10vh));
+    left: calc(50% + 0.3em * min(16vw, 10vh));
+    width: min(60vw, 40vh);
+    height: min(60vw, 40vh);
+  }
+  .menu-item {
+    font-size: min(4vw, 3vh);
+    margin: min(1vw, 0.8vh) 0;
+  }
+}
+
+@media (orientation: portrait) {
+  .splash {
+    font-size: min(16vw, 10vh);
+  }
+  .menu {
+    top: calc(50% + 0.425em * min(16vw, 10vh));
+    left: calc(50% + 0.3em * min(16vw, 10vh));
+  }
+}
+
+@media (orientation: landscape) {
+  .splash {
+    font-size: min(20vw, 18vh);
+  }
+  .menu {
+    top: calc(50% + (1em - 0.15em) * min(20vw, 18vh));
+    left: calc(50% + 0.3em * min(20vw, 18vh));
+  }
+}

@@ -1,0 +1,256 @@
+/* ====== Header ====== */
+.litho-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(8px, 2vw, 24px) clamp(16px, 4vw, 56px);
+  background-color: #fff;
+  position: relative;
+  z-index: 20;
+  margin-bottom: 0;
+}
+
+.litho-logo-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.litho-logo-container .litho-logo {
+  font-family: "mundial-narrow-variable", sans-serif !important;
+  font-variation-settings: 'wght' 100 !important;
+  font-size: clamp(32px, 8vw, 96px) !important;
+  font-weight: 100 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+.litho-logo-container:hover .litho-logo {
+  color: #333;
+}
+
+/* Dot Button */
+.litho-dot {
+  width: clamp(18px, 2vw, 28px);
+  height: clamp(18px, 2vw, 28px);
+  background-color: #e53e3e;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.litho-dot:hover {
+  transform: scale(1.1);
+}
+
+.litho-dot:focus-visible {
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.35);
+}
+
+/* ====== Overlay ====== */
+.litho-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+  z-index: 900;
+}
+
+.litho-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ====== Menu (grows from dot, items in screen top-right) ====== */
+.litho-menu {
+  position: fixed;
+  transform: translate(-50%, -50%) scale(0);
+  width: 30px;
+  height: 30px;
+  background-color: #C94035;
+  border-radius: 50%;
+  padding: 60px;
+  box-sizing: border-box;
+  transition: width 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              height 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 400ms ease,
+              transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.litho-menu.open {
+  width: 100vw;
+  height: 100vw;
+  transform: translate(-25%, -50%) scale(1);
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ====== Menu Items Container (fixed top-right position) ====== */
+.litho-menu-items-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding-right: 80px;
+  padding-top: clamp(8px, 2vw, 24px);
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.litho-menu-item {
+  color: white !important;
+  font-family: "mundial-narrow-variable", sans-serif;
+  font-variation-settings: 'wght' 100;
+  font-size: clamp(28px, 4vw, 48px);
+  margin: 15px 0;
+  cursor: pointer;
+  transition: all 200ms ease;
+  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  opacity: 0;
+  transform: translateX(50px);
+  pointer-events: all;
+  animation: slideInFromRight 0.6s ease forwards;
+}
+
+/* Staggered animation delays for menu items */
+.litho-menu-item:nth-child(1) { animation-delay: 0.1s; }
+.litho-menu-item:nth-child(2) { animation-delay: 0.15s; }
+.litho-menu-item:nth-child(3) { animation-delay: 0.2s; }
+.litho-menu-item:nth-child(4) { animation-delay: 0.25s; }
+.litho-menu-item:nth-child(5) { animation-delay: 0.3s; }
+.litho-menu-item:nth-child(6) { animation-delay: 0.35s; }
+
+@keyframes slideInFromRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.litho-menu-item:hover {
+  color: rgba(255, 255, 255, 0.7) !important;
+  transform: translateX(-10px);
+}
+
+/* Responsive positioning for menu items */
+@media (max-width: 768px) {
+  .litho-menu-items-container {
+    padding-right: 50px;
+    padding-top: clamp(8px, 2vw, 24px);
+  }
+  .litho-menu-item {
+    font-size: clamp(22px, 5vw, 36px);
+    margin: 12px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .litho-menu-items-container {
+    padding-right: 30px;
+    padding-top: clamp(8px, 2vw, 24px);
+  }
+  .litho-menu-item {
+    font-size: clamp(18px, 6vw, 28px);
+    margin: 10px 0;
+  }
+}
+
+.litho-menu-close {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  color: white;
+  font-size: 36px;
+  cursor: pointer;
+  font-weight: 300;
+  transition: all 200ms ease;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  z-index: 10001;
+}
+
+.litho-menu-close:hover {
+  transform: scale(1.1) rotate(90deg);
+}
+
+/* Responsive design - bigger circles for mobile */
+@media (max-width: 768px) {
+  .litho-menu.open {
+    width: 120vw;
+    height: 120vw;
+    transform: translate(-20%, -50%) scale(1);
+  }
+  .litho-menu {
+    padding: 50px;
+  }
+  .litho-menu-close {
+    top: 35px;
+    right: 35px;
+    font-size: 38px;
+    width: 55px;
+    height: 55px;
+  }
+}
+
+@media (max-width: 480px) {
+  .litho-menu.open {
+    width: 140vw;
+    height: 140vw;
+    transform: translate(-15%, -50%) scale(1);
+  }
+  .litho-menu {
+    padding: 40px;
+  }
+  .litho-menu-close {
+    top: 25px;
+    right: 25px;
+    font-size: 32px;
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (orientation: portrait) and (max-width: 768px) {
+  .litho-menu.open {
+    width: 130vw;
+    height: 130vw;
+    transform: translate(-18%, -50%) scale(1);
+  }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .litho-menu.open {
+    width: 150vh;
+    height: 150vh;
+    transform: translate(-30%, -50%) scale(1);
+  }
+  .litho-menu {
+    padding: 40px;
+  }
+}

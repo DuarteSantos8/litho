@@ -1,13 +1,32 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Apply your exact CSS globally */
+*, 
+*::before, 
+*::after {
+  font-family: "mundial-narrow-variable", sans-serif;
+  font-variation-settings: 'wght' 100;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body, 
+html {
+  font-family: "mundial-narrow-variable", sans-serif;
+  font-variation-settings: 'wght' 100;
+}
+
+/* For headings to be bolder */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "mundial-narrow-variable", sans-serif;
+  font-variation-settings: 'wght' 900;
+}
+
+/* Variable Font Setup */
+:root {
+  --wght-body: 100;   /* sehr dünn, wie gewünscht */
+  --wght-title: 300;  /* größerer Titel, etwas kräftiger */
+  --wght-strong: 800; /* für fette Akzente */
+}
+
+html, body {
+  font-family: "mundial-narrow-variable", sans-serif;
+  font-variation-settings: 'wght' var(--wght-body);
+  font-synthesis-weight: none;
 }
