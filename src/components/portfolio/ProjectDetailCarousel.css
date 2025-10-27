@@ -1,0 +1,139 @@
+/* Vollbild, keine Seiten-Scrolls */
+.proj-slider {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+  background: #fff;
+}
+
+/* Kopfzeile */
+.proj-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px clamp(12px, 3vw, 24px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.proj-head .back {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+.proj-head .title h1 {
+  margin: 0;
+  font-size: clamp(18px, 2.4vw, 28px);
+  line-height: 1.1;
+}
+.proj-head .title p {
+  margin: 2px 0 0;
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+.proj-head .pager {
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* Viewport */
+.proj-viewport {
+  position: relative;
+  overflow: hidden;      /* kein Scrollen */
+  height: 100%;
+  background: #f7f7f7;
+  display: grid;
+  place-items: center;
+}
+
+/* Slides */
+.slide {
+  width: min(92vw, 1200px);
+  height: calc(100% - 32px); /* kleiner Puffer */
+  display: grid;
+  place-items: center;
+}
+
+/* Bild-Slides: Bild voll sichtbar (contain) */
+.slide-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.16);
+  background: #fff;
+}
+
+/* Intro-Slide: graue Box mit Text+Bild */
+.slide-intro {
+  width: min(92vw, 1200px);
+  height: calc(100% - 32px);
+  display: grid;
+  place-items: center;
+}
+.intro-wrap {
+  width: 100%;
+  height: 100%;
+  background: #efefef;         /* graue Box */
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(16px, 3vw, 32px);
+  padding: clamp(16px, 3vw, 32px);
+}
+.intro-text {
+  overflow: auto;               /* falls Text sehr lang ist */
+}
+.intro-text .facts {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+  display: grid;
+  gap: 6px;
+}
+.intro-text .body p { margin: 0 0 10px 0; }
+
+.intro-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;            /* wie im Magazin-Look */
+  border-radius: 10px;
+  background: #ddd;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+}
+
+/* Navigation */
+.proj-viewport .nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+  background: rgba(255,255,255,0.95);
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+  color: #333;
+  display: grid;
+  place-items: center;
+  transition: transform .12s ease, opacity .12s ease;
+  opacity: 0.95;
+}
+.proj-viewport .nav:hover { transform: translateY(-50%) scale(1.06); }
+.proj-viewport .nav:disabled { opacity: 0.35; cursor: default; }
+
+.proj-viewport .prev { left: 12px; }
+.proj-viewport .next { right: 12px; }
+
+/* Mobile: Intro-Slide spalten untereinander */
+@media (max-width: 900px) {
+  .intro-wrap {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto 1fr;
+  }
+}

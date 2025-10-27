@@ -1,0 +1,79 @@
+[
+  {
+    "id": "01",
+    "slug": "projekt-01",
+    "title": "ZETT Magazin 18",
+    "year": 2025,
+    "cover": "01-cover.jpg"
+  },
+  {
+    "id": "02",
+    "slug": "projekt-02",
+    "title": "Museum für Gestaltung",
+    "year": 2025,
+    "cover": "01-cover.jpg"
+  },
+  {
+    "id": "03",
+    "slug": "projekt-03",
+    "title": "Aichinger Zahnärzte",
+    "year": 2025,
+    "cover": "01-cover.jpg"
+  },
+  {
+    "id": "04",
+    "slug": "projekt-04",
+    "title": "Hutträger des Jahres",
+    "year": "2025",
+    "cover": "01-cover.jpg"
+  },
+  {
+    "id": "05",
+    "slug": "projekt-05",
+    "title": "Schmuck Franziska Gnos",
+    "year": "2025",
+    "cover": "01-cover.jpg"
+  },
+  {
+    "id": "06",
+    "slug": "projekt-06",
+    "title": " Theater Casino Zug",
+    "year": "2025",
+    "cover": "01-cover.jpg"
+  },
+  {
+    "id": "07",
+    "slug": "projekt-07",
+    "title": "Museum für Gestaltung",
+    "year": "2024",
+    "cover": "01-cover.jpg"
+  },
+  {
+    "id": "08",
+    "slug": "projekt-08",
+    "title": "Guinea im Rückblick",
+    "year": "2024",
+    "cover": "01-cover.jpg"
+  },
+  {
+    "id": "09",
+    "slug": "projekt-09",
+    "title": "Schriftenfächer",
+    "year": "2024",
+    "cover": "01-cover.jpg"
+  },
+  {
+    "id": "10",
+    "slug": "projekt-10",
+    "title": "Zürcher Hochschule der Künste",
+    "year": "2019",
+    "cover": "01-cover.jpg"
+  },
+  {
+    "id": "11",
+    "slug": "projekt-11",
+    "title": "Taschenverlag",
+    "year": "2025",
+    "cover": "01-cover.jpg"
+  }
+]

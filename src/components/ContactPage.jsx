@@ -1,140 +1,244 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from 'react';
+import { FaEnvelope, FaLinkedin, FaMapMarkerAlt } from 'react-icons/fa';
+import { BsMicrosoftTeams } from "react-icons/bs";
+import emailjs from '@emailjs/browser';
 import "./ContactPage.css";
 
-export default function ContactPage() {
+const ContactPage = () => {
+  const formRef = useRef();
+
   const [formData, setFormData] = useState({
-    anfrage: '',
     name: '',
     email: '',
-    telefon: '',
-    rueckrufzeit: '',
+    subject: '',
+    message: ''
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+  const [timeUntilNextMessage, setTimeUntilNextMessage] = useState(0);
+  const [timerActive, setTimerActive] = useState(false);
+
+  // Prüfe beim Laden der Komponente, ob eine Zeitbegrenzung aktiv ist
+  useEffect(() => {
+    checkRateLimit();
+  }, []);
+
+  // Timer-Funktion, die den verbleibenden Countdown aktualisiert
+  useEffect(() => {
+    let interval;
+    if (timerActive && timeUntilNextMessage > 0) {
+      interval = setInterval(() => {
+        setTimeUntilNextMessage(prevTime => {
+          const newTime = prevTime - 1;
+          if (newTime <= 0) {
+            clearInterval(interval);
+            setTimerActive(false);
+            return 0;
+          }
+          return newTime;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [timerActive, timeUntilNextMessage]);
+
+  // Prüft, ob der Benutzer das Rate-Limit erreicht hat
+  const checkRateLimit = () => {
+    const lastMessageTime = localStorage.getItem('lastMessageTime');
+    if (lastMessageTime) {
+      const currentTime = new Date().getTime();
+      const timeDiff = currentTime - parseInt(lastMessageTime);
+      const waitTime = 600000; // 10 Minuten in Millisekunden
+      
+      if (timeDiff < waitTime) {
+        const remainingTime = Math.ceil((waitTime - timeDiff) / 1000);
+        setTimeUntilNextMessage(remainingTime);
+        setTimerActive(true);
+        return true;
+      }
+    }
+    return false;
+  };
+
+  // Formatiert die verbleibende Zeit in Minuten und Sekunden
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  };
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Validierung
-    if (!formData.anfrage.trim() || !formData.name.trim() || !formData.email.trim()) {
-      alert('Bitte füllen Sie alle Pflichtfelder aus.');
+    // Prüfe, ob der Benutzer eine Nachricht senden darf
+    if (checkRateLimit()) {
+      setSubmitStatus('rate-limited');
       return;
     }
     
-    console.log('Captcha korrekt gelöst!');
-    
-    // Form zurücksetzen
-    setFormData({
-      anfrage: '',
-      name: '',
-      email: '',
-      telefon: '',
-      rueckrufzeit: '',
+    setIsSubmitting(true);
+
+    emailjs.sendForm(
+      process.env.REACT_APP_EMAILJS_SERVICE_ID,
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+      formRef.current,
+      process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+    ).then(() => {
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      
+      // Speichere den Zeitstempel der gesendeten Nachricht
+      localStorage.setItem('lastMessageTime', new Date().getTime().toString());
+      setTimeUntilNextMessage(600); // 10 Minuten in Sekunden
+      setTimerActive(true);
+      
+    }).catch((error) => {
+      console.error('EmailJS error:', error);
+      setSubmitStatus('error');
+    }).finally(() => {
+      setIsSubmitting(false);
     });
-    alert('Nachricht erfolgreich gesendet!');
   };
 
   return (
-    <main className="contact-page">
-      {/* Titel */}
-      <div className="headline">
-        <h2 className="title">Kontakt</h2>
-      </div>
-
-      <section className="contact-content">
-        <div className="contact-info">
-          <div className="contact-details">
-            <p className="contact-name">Rita Lehnert</p>
-            <p className="contact-address">Malvenstrasse 12</p>
-            <p className="contact-address">8057 Zürich</p>
-            
-            <div className="contact-links">
-              <p className="contact-email">kontakt@litho.ch</p>
-              <p className="contact-phone">+41 76 205 32 64</p>
-            </div>
-          </div>
+    <section id="contact" className="contact-section">
+      <div className="contact-container">
+        <div className="contact-header">
+          <h2 className="section-title">Contact</h2>
         </div>
 
-        <div className="contact-form-container">
-          <form className="contact-form" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="anfrage">Anfrage *</label>
-              <textarea
-                id="anfrage"
-                name="anfrage"
-                value={formData.anfrage}
-                onChange={handleChange}
-                rows="2"
-                className="form-textarea"
-                required
-              />
-            </div>
+        <div className="contact-content">
+          <div className="contact-info">
+            <h3>Let's Connect</h3>
+            <p>Feel free to reach out for collaborations or just to say hi!</p>
 
-            <div className="form-row">
+            <div className="contact-details">
+              <div className="contact-item">
+                <FaEnvelope className="contact-icon" />
+                <span>kontakt@litho.ch</span>
+              </div>
+
+              <div className="contact-item">
+                <FaMapMarkerAlt className="contact-icon" />
+                <span>Rita Lehnert, Malvenstrasse 12, 8057 Zürich</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="contact-form-container">
+            <form 
+              className="contact-form" 
+              onSubmit={handleSubmit}
+              ref={formRef}
+            >
               <div className="form-group">
-                <label htmlFor="name">Name *</label>
+                <label htmlFor="name">Name</label>
                 <input
                   type="text"
                   id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="form-input"
                   required
+                  placeholder="Your name"
+                  disabled={timerActive}
                 />
               </div>
-              
+
               <div className="form-group">
-                <label htmlFor="email">E-Mail *</label>
+                <label htmlFor="email">Email</label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="form-input"
                   required
-                />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="telefon">Telefon (optional)</label>
-                <input
-                  type="tel"
-                  id="telefon"
-                  name="telefon"
-                  value={formData.telefon}
-                  onChange={handleChange}
-                  className="form-input"
+                  placeholder="Your email"
+                  disabled={timerActive}
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="rueckrufzeit">Rückrufzeit (optional)</label>
+                <label htmlFor="subject">Subject</label>
                 <input
                   type="text"
-                  id="rueckrufzeit"
-                  name="rueckrufzeit"
-                  value={formData.rueckrufzeit}
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
                   onChange={handleChange}
-                  className="form-input"
-                  placeholder="DD/MM/YY HH:MM"
+                  required
+                  placeholder="Subject"
+                  disabled={timerActive}
                 />
               </div>
-            </div>
-            <button type="submit" className="submit-button">
-              senden
-            </button>
-          </form>
+
+              <div className="form-group">
+                <label htmlFor="message">Message</label>
+                <div className="textarea-wrapper">
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    placeholder="Your message"
+                    rows="6"
+                    maxLength="500"
+                    disabled={timerActive}
+                  />
+                  <span className={`char-counter ${formData.message.length >= 500 ? 'limit-reached' : ''}`}>
+                    {formData.message.length}/500
+                  </span>
+                </div>
+              </div>
+
+              {timerActive ? (
+                <div className="rate-limit-notice">
+                  <p>Bitte warte {formatTime(timeUntilNextMessage)} bevor du eine weitere Nachricht sendest.</p>
+                </div>
+              ) : (
+                <button
+                  type="submit"
+                  className={`submit-button ${isSubmitting ? 'submitting' : ''}`}
+                  disabled={isSubmitting || timerActive}
+                >
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                </button>
+              )}
+
+              {submitStatus === 'success' && (
+                <div className="form-status success">
+                  Message sent successfully! I'll get back to you soon.
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div className="form-status error">
+                  There was an error sending your message. Please try again.
+                </div>
+              )}
+
+              {submitStatus === 'rate-limited' && (
+                <div className="form-status warn">
+                  Du kannst nur eine Nachricht alle 10 Minuten senden. Bitte warte.
+                </div>
+              )}
+            </form>
+          </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
-}
+};
+
+export default ContactPage;

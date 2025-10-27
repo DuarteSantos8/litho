@@ -1,3 +1,5 @@
+/* ========== Layout / Grundstruktur ========== */
+
 .making-of-container {
   min-height: 100vh;
   padding: 0;
@@ -16,7 +18,6 @@
   flex-wrap: wrap;
 }
 
-
 .title {
   text-align: left;
   font-size: clamp(24px, 5vw, 64px);
@@ -26,6 +27,11 @@
   color: #666;
 }
 
+.comparison-section {
+  max-width: 1200px;
+  margin: 0 auto 80px auto;
+  padding: 0 20px;
+}
 
 .credits {
   text-align: center;
@@ -43,16 +49,13 @@
   margin-right: 0;
 }
 
-.comparison-section {
-  max-width: 1200px;
-  margin: 0 auto 80px auto;
-  padding: 0 20px;
-}
+
+/* ========== Bildvergleich ========== */
 
 .image-comparison-container {
   position: relative;
   width: 100%;
-  height: 500px;
+  height: auto;            /* dynamisch nach Bildhöhe */
   cursor: ew-resize;
   overflow: hidden;
   border-radius: 8px;
@@ -63,30 +66,54 @@
   -ms-user-select: none;
 }
 
+/* Unsichtbares Sizer-Image, gibt die natürliche Höhe vor */
+.image-comparison-container .sizer {
+  display: block;
+  width: 100%;
+  height: auto;
+  visibility: hidden;
+}
+
+/* Ebenen */
 .image-layer {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;               /* top/right/bottom/left: 0 */
   overflow: hidden;
 }
 
 .image-layer img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;     /* komplettes Bild sichtbar */
   object-position: center;
   display: block;
   pointer-events: none;
+  background: #fff;        /* weiße Ränder bei Letterboxing */
 }
 
 .after-layer {
   z-index: 2;
 }
 
+/* Labels */
+.image-label {
+  position: absolute;
+  top: 20px;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.9);
+  color: #6c757d;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 8px 14px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  user-select: none;
+}
 
+.before-label { left: 20px; }
+.after-label  { right: 20px; }
 
+/* Slider */
 .slider-handle {
   position: absolute;
   top: 0;
@@ -131,36 +158,34 @@
   line-height: 1;
 }
 
-/* Responsive Design */
+
+/* ========== Responsive ========== */
+
 @media (max-width: 768px) {
   .title {
     font-size: 2.5rem;
     padding: 0 20px;
   }
-  
+
   .credits {
     font-size: 0.8rem;
     line-height: 1.6;
   }
-  
+
   .credits span {
     display: block;
     margin: 5px 0;
   }
-  
-  .image-comparison-container {
-    height: 300px;
-  }
-  
+
   .slider-button {
     width: 36px;
     height: 36px;
   }
-  
+
   .slider-button span {
     font-size: 14px;
   }
-  
+
   .comparison-section {
     margin-bottom: 60px;
   }
@@ -170,26 +195,17 @@
   .header {
     padding: 30px 0;
   }
-  
+
   .title {
     font-size: 2rem;
   }
-  
-  .image-comparison-container {
-    height: 250px;
-  }
-  
+
   .image-label {
     font-size: 0.7rem;
     padding: 6px 12px;
     top: 15px;
   }
-  
-  .before-label {
-    left: 15px;
-  }
-  
-  .after-label {
-    right: 15px;
-  }
+
+  .before-label { left: 15px; }
+  .after-label  { right: 15px; }
 }

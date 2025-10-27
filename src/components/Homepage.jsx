@@ -8,7 +8,9 @@ const Homepage = () => {
   const [animationComplete, setAnimationComplete] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuPosition, setMenuPosition] = useState({ top: '50%', left: '50%' });
+  const [menuSize, setMenuSize] = useState({ width: 0, height: 0 });
   const dotRef = useRef(null);
+  const oRef = useRef(null);
 
   const menuItems = [
     { label: 'HOME', path: '/' },
@@ -47,14 +49,25 @@ const Homepage = () => {
   }, [animationComplete]);
 
   const calculateMenuPosition = () => {
-    if (dotRef.current) {
+    if (dotRef.current && oRef.current) {
       const dotRect = dotRef.current.getBoundingClientRect();
+      const oRect = oRef.current.getBoundingClientRect();
+      
       const centerX = dotRect.left + dotRect.width / 2;
       const centerY = dotRect.top + dotRect.height / 2;
+      
+      // Menu height matches O height, width is auto-proportional
+      const height = oRect.height;
+      const width = height; // Keep it circular
       
       setMenuPosition({
         top: `${centerY}px`,
         left: `${centerX}px`
+      });
+      
+      setMenuSize({
+        width: width,
+        height: height
       });
     }
   };
@@ -111,7 +124,7 @@ const Homepage = () => {
         
         <span className="letter">T</span>
         <span className="letter">H</span>
-        <span className="letter">O</span>
+        <span className="letter" ref={oRef}>O</span>
       </div>
 
       {/* Menu */}
@@ -119,13 +132,12 @@ const Homepage = () => {
         className={`menu ${menuOpen ? 'open' : ''}`}
         style={{
           top: menuPosition.top,
-          left: menuPosition.left
+          left: menuPosition.left,
+          width: `${menuSize.width}px`,
+          height: `${menuSize.height}px`
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
-        <div className="close-btn" onClick={closeMenu}>×</div>
-
         {/* Menu items */}
         {menuItems.map((item, index) => (
           <div

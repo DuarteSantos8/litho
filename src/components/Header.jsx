@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
+import logo from "../assets/header-logo.png";
 
 const menuItems = [
   { label: "HOME", path: "/" },
@@ -86,9 +87,8 @@ const Header = () => {
     <>
       <header className="litho-header">
         <div className="litho-logo-container" onClick={handleLogoClick}>
-          <h1 className="litho-logo">L!THO</h1>
+          <img className="litho-logo-img" src={logo} alt="L!THO Logo" />
         </div>
-
         <button
           ref={dotRef}
           className="litho-dot"

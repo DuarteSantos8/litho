@@ -1,167 +1,175 @@
-import React, { useState, useRef } from 'react';
+import React, { useMemo, useState, useRef } from 'react';
+import metaData from '../data/making-of.json';      // Credits/Infos pro id
 import './MakingOfPage.css';
 
-const MakingOf = () => {
-  const [sliderPosition1, setSliderPosition1] = useState(50);
-  const [sliderPosition2, setSliderPosition2] = useState(50);
+/* ===== Bilder automatisch laden (CRA/Webpack) ===== */
+const imagesByName = {};
+function importAll(r) {
+  r.keys().forEach((key) => {
+    const file = key.replace('./', '');            // z.B. "1_v.jpg"
+    imagesByName[file.toLowerCase()] = r(key);     // URL
+  });
+}
+// Pfad ggf. anpassen:
+importAll(require.context('../assets/projects/making_of', false, /\.(jpe?g|png|webp)$/i));
+
+/* ===== Aus Dateinamen Paare bilden: id_v + id_n ===== */
+const buildPairsFromFolder = () => {
+  const pairs = new Map(); // id -> { id, beforeName, afterName }
+
+  const rx = /^(\d+)_([vn])\.(jpg|jpeg|png|webp)$/i;
+  Object.keys(imagesByName).forEach((name) => {
+    const m = name.match(rx);
+    if (!m) return;
+    const id = Number(m[1]);
+    const kind = m[2].toLowerCase(); // 'v' oder 'n'
+    const entry = pairs.get(id) || { id, beforeName: null, afterName: null };
+    if (kind === 'v') entry.beforeName = name;
+    if (kind === 'n') entry.afterName  = name;
+    pairs.set(id, entry);
+  });
+
+  return Array.from(pairs.values())
+    .filter((p) => p.beforeName && p.afterName)
+    .sort((a, b) => a.id - b.id);
+};
+
+const resolveImage = (filename) => {
+  if (!filename) return null;
+  return imagesByName[filename.toLowerCase()] ?? null;
+};
+
+const ComparisonSlider = ({ beforeSrc, afterSrc }) => {
+  const [position, setPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
-  
-  const slider1Ref = useRef(null);
-  const slider2Ref = useRef(null);
+  const sliderRef = useRef(null);
 
-  const handleMouseDown = (sliderRef, setPosition, e) => {
-    setIsDragging(true);
-    e.preventDefault();
-    
-    const handleMouseMove = (e) => {
-      if (!sliderRef.current) return;
-      
-      const rect = sliderRef.current.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
-      setPosition(percentage);
-    };
-
-    const handleMouseUp = () => {
-      setIsDragging(false);
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-    
-    // Initial position set
-    handleMouseMove(e);
+  const startPointer = (clientX) => {
+    if (!sliderRef.current) return;
+    const rect = sliderRef.current.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    setPosition(percentage);
   };
 
-  const handleTouchStart = (sliderRef, setPosition, e) => {
+  const onMouseDown = (e) => {
     setIsDragging(true);
     e.preventDefault();
-    
-    const handleTouchMove = (e) => {
-      if (!sliderRef.current) return;
-      
-      const rect = sliderRef.current.getBoundingClientRect();
-      const x = e.touches[0].clientX - rect.left;
-      const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
-      setPosition(percentage);
-    };
-
-    const handleTouchEnd = () => {
+    const onMove = (evt) => startPointer(evt.clientX);
+    const onUp = () => {
       setIsDragging(false);
-      document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleTouchEnd);
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
     };
-
-    document.addEventListener('touchmove', handleTouchMove, { passive: false });
-    document.addEventListener('touchend', handleTouchEnd);
-    
-    // Initial position set
-    handleTouchMove(e);
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+    startPointer(e.clientX);
   };
+
+  const onTouchStart = (e) => {
+    setIsDragging(true);
+    e.preventDefault();
+    const onMove = (evt) => startPointer(evt.touches[0].clientX);
+    const onEnd = () => {
+      setIsDragging(false);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onEnd);
+    };
+    document.addEventListener('touchmove', onMove, { passive: false });
+    document.addEventListener('touchend', onEnd);
+    startPointer(e.touches[0].clientX);
+  };
+
+  if (!beforeSrc || !afterSrc) return null;
+
+  return (
+    <div
+      className="image-comparison-container"
+      ref={sliderRef}
+      onMouseDown={onMouseDown}
+      onTouchStart={onTouchStart}
+      role="group"
+      aria-label="Bildvergleich"
+    >
+      {/* Unsichtbares Sizer-Image, damit die Box die natürliche Bildhöhe annimmt */}
+      <img className="sizer" src={beforeSrc} alt="" aria-hidden="true" />
+
+      {/* Vorher */}
+      <div className="image-layer">
+        <img src={beforeSrc} alt="" />
+      </div>
+
+      {/* Nachher (mit Clip) */}
+      <div
+        className="image-layer after-layer"
+        style={{
+          clipPath: `inset(0 ${100 - position}% 0 0)`,
+          transition: isDragging ? 'none' : 'clip-path 0.1s ease-out'
+        }}
+      >
+        <img src={afterSrc} alt="" />
+      </div>
+
+      {/* Slider Handle */}
+      <div
+        className="slider-handle"
+        style={{
+          left: `${position}%`,
+          transition: isDragging ? 'none' : 'left 0.1s ease-out'
+        }}
+        aria-hidden
+      >
+        <div className="slider-line"></div>
+        <div className="slider-button">
+          <span>‹</span>
+          <span>›</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const MakingOf = () => {
+  // Paare aus Ordner + Metadaten aus JSON mergen
+  const items = useMemo(() => {
+    const pairs = buildPairsFromFolder();
+    const metaById = new Map(metaData.map(m => [Number(m.id), m]));
+    return pairs.map(p => ({
+      ...p,
+      meta: metaById.get(p.id) || null
+    }));
+  }, []);
 
   return (
     <div className="making-of-container">
-      {/* Header */}
       <div className="header">
         <h1 className="title">Making Of</h1>
       </div>
 
-      {/* Image Comparison Section 1 */}
-      <div className="comparison-section">
-        <div 
-          className="image-comparison-container"
-          ref={slider1Ref}
-          onMouseDown={(e) => handleMouseDown(slider1Ref, setSliderPosition1, e)}
-          onTouchStart={(e) => handleTouchStart(slider1Ref, setSliderPosition1, e)}
-        >
-          {/* Before Image (Vorher) */}
-          <div className="image-layer">
-            <img src="/src/v-n/1_V.jpg" alt="Vorher" />
-            <div className="image-label before-label">VORHER</div>
-          </div>
+      {items.map(({ id, beforeName, afterName, meta }) => {
+        const beforeSrc = resolveImage(beforeName);
+        const afterSrc  = resolveImage(afterName);
+        if (!beforeSrc || !afterSrc) {
+          console.warn('[MakingOf] Bild nicht gefunden:', { id, beforeName, afterName });
+          return null;
+        }
 
-          {/* After Image (Nachher) - with clip */}
-          <div 
-            className="image-layer after-layer"
-            style={{ 
-              clipPath: `inset(0 ${100 - sliderPosition1}% 0 0)`,
-              transition: isDragging ? 'none' : 'clip-path 0.1s ease-out'
-            }}
-          >
-            <img src="/src/v-n/1_N.jpg" alt="Nachher" />
-            <div className="image-label after-label">NACHHER</div>
+        return (
+          <div className="comparison-section" key={id}>
+            <ComparisonSlider beforeSrc={beforeSrc} afterSrc={afterSrc} />
+            {/* Credits aus JSON unter dem Bild */}
+            {meta && (
+              <div className="credits">
+                {meta.client && <span><strong>Kunde:</strong> {meta.client}</span>}
+                {Array.isArray(meta.graphics) && meta.graphics.length > 0 && (
+                  <span><strong>Grafik:</strong> {meta.graphics.join(', ')}</span>
+                )}
+                {meta.photo && <span><strong>Foto:</strong> {meta.photo}</span>}
+              </div>
+            )}
           </div>
-
-          {/* Slider Handle */}
-          <div 
-            className="slider-handle"
-            style={{ 
-              left: `${sliderPosition1}%`,
-              transition: isDragging ? 'none' : 'left 0.1s ease-out'
-            }}
-          >
-            <div className="slider-line"></div>
-            <div className="slider-button">
-              <span>‹</span>
-              <span>›</span>
-            </div>
-          </div>
-        </div>
-        {/* Credits */}
-          <div className="credits">
-            <span><strong>Kunde:</strong> Theater Casino Zug</span>
-            <span><strong>Grafik:</strong> Melanie Lindner, Céline Odermatt</span>
-            <span><strong>Foto:</strong> Rita Palanikumar</span>
-          </div>
-      </div>
-
-      {/* Image Comparison Section 2 */}
-      <div className="comparison-section">
-        <div 
-          className="image-comparison-container"
-          ref={slider2Ref}
-          onMouseDown={(e) => handleMouseDown(slider2Ref, setSliderPosition2, e)}
-          onTouchStart={(e) => handleTouchStart(slider2Ref, setSliderPosition2, e)}
-        >
-          {/* Before Image (Nacher) */}
-          <div className="image-layer">
-            <img src="/src/v-n/2_N.jpg" alt="Nacher" />
-          </div>
-
-          {/* After Image (Vorher) - with clip */}
-          <div 
-            className="image-layer after-layer"
-            style={{ 
-              clipPath: `inset(0 0 0 ${sliderPosition2}%)`,
-              transition: isDragging ? 'none' : 'clip-path 0.1s ease-out'
-            }}
-          >
-            <img src="/src/v-n/2_V.jpg" alt="Vorher" />
-          </div>
-
-          {/* Slider Handle */}
-          <div 
-            className="slider-handle"
-            style={{ 
-              left: `${sliderPosition2}%`,
-              transition: isDragging ? 'none' : 'left 0.1s ease-out'
-            }}
-          >
-            <div className="slider-line"></div>
-            <div className="slider-button">
-              <span>‹</span>
-              <span>›</span>
-            </div>
-          </div>
-        </div>
-          <div className="credits">
-            <span><strong>Kunde:</strong> Theater Casino Zug</span>
-            <span><strong>Grafik:</strong> Melanie Lindner, Céline Odermatt</span>
-            <span><strong>Foto:</strong> Rita Palanikumar</span>
-          </div>
-      </div>
+        );
+      })}
     </div>
   );
 };
