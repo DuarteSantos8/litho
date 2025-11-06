@@ -11,6 +11,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import PortfolioGrid from './pages/PortfolioGrid';
 import ProjectDetail from './pages/PortfolioDetail';
+import ProjectDetailCarousel from './components/portfolio/ProjectDetailCarousel';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/portfolio" element={<PortfolioGrid />} />
           <Route path="/portfolio/:slug" element={<ProjectDetail />} />
+          <Route path="/portfolio/:slug/slider" element={<ProjectDetailCarousel />} />
         </Routes>
       </div>
     </Router>

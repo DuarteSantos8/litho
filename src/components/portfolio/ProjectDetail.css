@@ -38,13 +38,14 @@
   width: 100%;
   height: auto;
   border-radius: 12px;
+  max-height: clamp(240px, 38vh, 520px);
   box-shadow: 0 8px 28px rgba(0,0,0,0.08);
   object-fit: cover;
 }
 
 .project-gallery {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: clamp(12px, 2vw, 20px);
 }
 
@@ -52,6 +53,7 @@
   width: 100%;
   height: auto;
   border-radius: 12px;
+  max-height: clamp(200px, 42vh, 520px);
   object-fit: cover;
   box-shadow: 0 8px 28px rgba(0,0,0,0.06);
 }

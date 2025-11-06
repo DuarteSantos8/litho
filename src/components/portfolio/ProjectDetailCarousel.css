@@ -2,7 +2,7 @@
 .proj-slider {
   display: grid;
   grid-template-rows: auto 1fr;
-  height: 100vh;
+  height: auto;
   background: #fff;
 }
 
@@ -40,7 +40,7 @@
 .proj-viewport {
   position: relative;
   overflow: hidden;      /* kein Scrollen */
-  height: 100%;
+  height: clamp(420px, 72vh, 900px);
   background: #f7f7f7;
   display: grid;
   place-items: center;
@@ -48,7 +48,7 @@
 
 /* Slides */
 .slide {
-  width: min(92vw, 1200px);
+  width: min(92vw, 1100px);
   height: calc(100% - 32px); /* kleiner Puffer */
   display: grid;
   place-items: center;
