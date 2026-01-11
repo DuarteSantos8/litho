@@ -4,27 +4,11 @@
 
 .portfolio {
   position: relative;
-  padding: clamp(8px, 2vw, 24px) clamp(16px, 4vw, 56px);
+  /* padding moved to App.css */
 }
 
-/* Headline */
-.headline {
-  display: flex;
-  align-items: baseline;
-  gap: clamp(10px, 2vw, 16px);
-  flex-wrap: wrap;
-}
-
-
-.title {
-  font-family: "mundial-narrow-variable", sans-serif !important;
-  font-variation-settings: 'wght' 100 !important;
-  font-size: clamp(32px, 8vw, 96px) !important;
-  font-weight: 100 !important;
-  line-height: 1.05;
-  margin: 0;
-  color: #666;
-}
+/* Headline moved to App.css */
+/* Title moved to App.css */
 
 
 /* Grid */

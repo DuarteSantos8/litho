@@ -8,85 +8,114 @@
   box-sizing: border-box;
 }
 
-/* Main content spacing for pages with header */
-.main-content {
-  margin-top: 20px; /* Reduced spacing from header */
+/* --- Global Page & Typography Defaults --- */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
-/* Global page styles */
-.page-container {
-  min-height: 100vh;
-  background: #f5f5f5;
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Removed implicit inline spacing */
+}
+
+body {
+  font-family: "mundial-narrow-variable", sans-serif;
+  font-variation-settings: 'wght' 400;
+  color: #111;
+  background-color: #ffffff;
+}
+
+/* --- Common Section Wrappers --- */
+/* Used by Home, Service, Portfolio, MakingOf, About */
+.page-section,
+.home-page,
+.service-page,
+.portfolio,
+.about-page,
+.making-of-container,
+.contact-section,
+.project-detail {
+  /* Increased top padding for better title spacing on mobile */
+  /* Consistent padding for ALL detailed pages including Project Detail */
+  padding: clamp(40px, 6vw, 60px) var(--global-padding-x) clamp(24px, 4vw, 48px);
+  background: #fff;
+  text-align: left;
+  /* Ensure consistent baseline */
+}
+
+/* --- Common Headline Styles --- */
+/* The container for the title */
+.headline,
+.contact-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: clamp(10px, 2vw, 16px);
+  flex-wrap: wrap;
+  margin-bottom: clamp(12px, 2vw, 24px);
+  width: 100%;
+}
+
+/* The title text itself */
+.title,
+.section-title,
+.project-title {
+  font-family: "mundial-narrow-variable", sans-serif !important;
+  font-variation-settings: 'wght' 100 !important;
+  /* Scaled to be consistently slightly smaller than the logo (Logo: 65px / 10vw / 120px) */
+  font-size: clamp(35px, 9vw, 90px) !important;
+  font-weight: 100 !important;
+  line-height: 1.05;
+  margin: 0;
+  color: #666;
+  text-transform: none;
+}
+
+/* --- Common Layout Grids --- */
+/* Used in Service, About */
+.two-column-layout,
+.service-content,
+.about-content {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: start;
+  justify-items: start;
+  gap: clamp(24px, 6vw, 72px);
+  margin-top: clamp(16px, 3vw, 40px);
+}
+
+@media (max-width: 1024px) {
+  .two-column-layout,
+  .service-content,
+  .about-content {
+    grid-template-columns: 1fr;
+    margin-top: clamp(16px, 3vw, 32px);
+  }
+}
+
+/* --- Common Body Text --- */
+.body-text,
+.service-text,
+.about-text,
+.home-description p {
+  max-width: 68ch;
   font-family: "mundial-narrow-variable", sans-serif;
   font-variation-settings: 'wght' 100;
-  padding: 4rem 2rem 2rem;
+  font-size: clamp(16px, 1.2vw, 22px);
+  line-height: 1.6;
+  color: #111;
 }
 
-.page-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: left;
+.body-text p,
+.service-text p,
+.about-text p {
+  margin: 0 0 1.2em;
 }
 
-.page-title {
-  font-size: 4rem;
-  font-weight: 900;
-  color: #e53e3e;
-  margin-bottom: 3rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.page-text {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  color: #333;
-  max-width: 800px;
-}
-
-.page-text p {
-  margin-bottom: 1.5rem;
-}
-
-.contact-info {
-  margin-top: 2rem;
-  padding: 2rem;
-  background: white;
-  border-left: 4px solid #e53e3e;
-  border-radius: 8px;
-}
-
-.contact-info p {
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .page-title {
-    font-size: 3rem;
-    margin-bottom: 2rem;
-  }
-  
-  .page-text {
-    font-size: 1.1rem;
-  }
-  
-  .main-content {
-    margin-top: 70px;
-  }
-}
-
-@media (max-width: 480px) {
-  .page-title {
-    font-size: 2.5rem;
-  }
-  
-  .page-text {
-    font-size: 1rem;
-  }
-  
-  .main-content {
-    margin-top: 60px;
-  }
+/* Section spacing for single page layout */
+section {
+    width: 100%;
+    margin-bottom: clamp(3rem, 5vw, 6rem);
 }

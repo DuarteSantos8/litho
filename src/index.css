@@ -23,6 +23,7 @@ h1, h2, h3, h4, h5, h6 {
   --wght-body: 100;   /* sehr dünn, wie gewünscht */
   --wght-title: 300;  /* größerer Titel, etwas kräftiger */
   --wght-strong: 800; /* für fette Akzente */
+  --global-padding-x: clamp(32px, 6vw, 80px);
 }
 
 html, body {

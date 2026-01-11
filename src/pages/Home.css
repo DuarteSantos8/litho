@@ -1,0 +1,136 @@
+.home-page {
+  min-height: calc(100vh - 100px);
+  /* Padding managed by App.css universally now, except possibly bottom */
+  /* padding: clamp(24px, 4vw, 48px) var(--global-padding-x) clamp(24px, 4vw, 48px); */
+  padding-bottom: clamp(24px, 4vw, 48px);
+  background: #fff;
+  text-align: left;
+}
+
+.home-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 8rem);
+  align-items: start;
+  padding-top: 0;
+}
+
+/* Linke Spalte */
+.home-left {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+.headline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: clamp(10px, 2vw, 16px);
+  flex-wrap: wrap;
+  margin-bottom: 0;
+  width: 100%;
+}
+
+/* Title styles removed to inherit from App.css */
+/* .title { ... } */
+
+.home-description {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.home-description p {
+  max-width: 68ch;
+  font-family: "mundial-narrow-variable", sans-serif;
+  font-variation-settings: 'wght' 100;
+  font-size: clamp(16px, 1.2vw, 22px);
+  line-height: 1.6;
+  color: #111;
+  margin: 0;
+}
+
+/* Rechte Spalte - Großer Slogan */
+.home-right {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-left: clamp(1rem, 3vw, 2rem);
+  padding-top: clamp(0rem, 1vw, 1rem);
+}
+
+.home-slogan {
+  font-family: "mundial-narrow-variable", sans-serif;
+  font-variation-settings: 'wght' 900;
+  font-size: clamp(2.5rem, 5.5vw, 5.2rem);
+  color: #000000;
+  margin: 0;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* Responsive Anpassungen */
+@media (max-width: 1024px) {
+  .home-content {
+    grid-template-columns: 1fr;
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+  
+  .home-left {
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  
+  .home-right {
+    padding-left: 0;
+    justify-content: flex-start;
+  }
+  
+  .home-slogan {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .home-content {
+    gap: 2.5rem;
+  }
+  
+  .home-slogan {
+    font-size: clamp(2rem, 7vw, 3.5rem);
+  }
+  
+  /* .title {
+    font-size: clamp(20px, 5vw, 40px) !important;
+  } */
+  
+  .home-description p {
+    font-size: clamp(15px, 3.5vw, 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .home-page {
+    padding: clamp(8px, 2vw, 16px) var(--global-padding-x) clamp(8px, 2vw, 20px);
+  }
+  
+  .home-content {
+    gap: 2rem;
+  }
+  
+  .home-left {
+    gap: 1.5rem;
+  }
+  
+  /* .title {
+    font-size: clamp(18px, 6vw, 32px) !important;
+  } */
+  
+  .home-description p {
+    font-size: clamp(14px, 4vw, 18px);
+  }
+  
+  .home-slogan {
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+  }
+}

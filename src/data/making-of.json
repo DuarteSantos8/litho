@@ -3,56 +3,56 @@
     "id": 1,
     "before": "1_v.jpg",
     "after": "1_n.jpg",
-    "client": "Theater Casino Zug",
-    "graphics": ["Melanie Lindner", "Céline Odermatt"],
-    "photo": "Rita Palanikumar"
+    "client": "Ärztekammer Nordrhein",
+    "graphics": ["Tina Einen"],
+    "photo": ""
   },
   {
     "id": 2,
     "before": "2_v.jpg",
     "after": "2_n.jpg",
-    "client": "Theater Casino Zug",
-    "graphics": ["Melanie Lindner", "Céline Odermatt"],
-    "photo": "Rita Palanikumar"
+    "client": "Ärztekammer Nordrhein",
+    "graphics": ["Tina Einen"],
+    "photo": ""
   },
   {
     "id": 3,
     "before": "3_v.jpg",
     "after": "3_n.jpg",
-    "client": "Theater Casino Zug",
-    "graphics": ["Melanie Lindner", "Céline Odermatt"],
-    "photo": "Rita Palanikumar"
+    "client": "Ärztekammer Nordrhein",
+    "graphics": ["Tina Einen"],
+    "photo": ""
   },
   {
     "id": 4,
     "before": "4_v.jpg",
     "after": "4_n.jpg",
-    "client": "Theater Casino Zug",
-    "graphics": ["Melanie Lindner", "Céline Odermatt"],
-    "photo": "Rita Palanikumar"
+    "client": "Franziska Gnos",
+    "graphics": [],
+    "photo": ""
   },
   {
     "id": 5,
     "before": "5_v.jpg",
     "after": "5_n.jpg",
     "client": "Theater Casino Zug",
-    "graphics": ["Melanie Lindner", "Céline Odermatt"],
-    "photo": "Rita Palanikumar"
+    "graphics": ["Samuel Marty", "Richard Frick"],
+    "photo": ""
   },
   {
     "id": 98,
     "before": "98_v.jpg",
     "after": "98_n.jpg",
     "client": "Theater Casino Zug",
-    "graphics": ["Melanie Lindner", "Céline Odermatt"],
+    "graphics": ["Melanie Lindner"],
     "photo": "Rita Palanikumar"
   },
   {
     "id": 99,
     "before": "99_v.jpg",
     "after": "99_n.jpg",
-    "client": "Theater Casino Zug",
-    "graphics": ["Melanie Lindner", "Céline Odermatt"],
-    "photo": "Rita Palanikumar"
+    "client": "Jakob Marty",
+    "graphics": [],
+    "photo": ""
   }
 ]

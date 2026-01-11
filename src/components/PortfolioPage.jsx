@@ -38,7 +38,7 @@ export default function PortfolioGrid() {
         src={img.src}
         alt={img.alt}
         loading={idx < 4 ? "eager" : "lazy"}
-        fetchpriority={idx < 4 ? "high" : "auto"}
+        fetchPriority={idx < 4 ? "high" : "auto"}
         decoding="async"
       />
     </figure>

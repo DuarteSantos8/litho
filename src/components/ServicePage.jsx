@@ -12,12 +12,8 @@ export default function ServicePage() {
       <section className="service-content">
         <div className="service-text">
           <p>
-            Egal, ob es um eine einfache Farbkorrektur, aufwändige Retuschen, kreatives Composing oder Fotomontagen geht – ich prüfe die Qualität sorgfältig und setze Ihre Wünsche kreativ, professionell und nach aktuellen Standards um. Mit langjähriger Erfahrung und einer Leidenschaft für Details biete ich individuelle Lösungen für Fotografen, Grafiker, Agenturen, Unternehmen und Privatpersonen.
+            Egal, ob es um eine einfache Farbkorrektur, aufwändige Retuschen, kreatives Composing oder Fotomontagen geht – ich prüfe die Qualität sorgfältig und setze Ihre Wünsche kreativ, professionell und nach aktuellen Standards um. Mit langjähriger Erfahrung und einer Leidenschaft für Details biete ich individuelle Lösungen für Fotograf:innen und Grafiker:innen, Agenturen, Unternehmen und Privatpersonen.
           </p>
-
-          <div className="service-quote">
-            <p>«Jeder Pixel zählt - im Kleinen Großes bewirken»</p>
-          </div>
         </div>
 
         <div className="service-list">
@@ -35,6 +31,8 @@ export default function ServicePage() {
             <p>• Composing</p>
             <p>• Lookfindung</p>
             <p>• Farbraumkonvertierung</p>
+            <p>• Bilder auf gewünschte Formate bringen</p>
+            <p>• Druckdaten erstellen</p>
             <p>• Mediengestaltung</p>
           </div>
         </div>

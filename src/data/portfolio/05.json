@@ -1,12 +1,13 @@
 {
   "id": "05",
   "slug": "projekt-05",
-  "title": "Projekt 05",
-  "year": null,
+  "title": "Schmuck Franziska Gnos",
   "client": null,
   "roles": [],
-  "tags": [],
-  "text_image": null,
+  "tags": ["Schmuck", "Fotografie"],
+  "text_image": "01-title.jpg",
   "body": [],
-  "credits": {}
+  "credits": {
+    "photography": "Franziska Gnos"
+  }
 }

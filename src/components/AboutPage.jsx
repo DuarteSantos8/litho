@@ -11,7 +11,7 @@ export default function About() {
 
         <section className="about-content">
           <div className="about-text">
-            <p>Hallo, ich bin Rita.</p>
+            <p>Hallo, ich bin Rita – Mach mal schön … und ich bin immer noch mit Begeisterung dabei. Gern auch für Sie.</p>
 
             <p>
               Ich bin Mediengestalterin, Lithografin und Photoshop-Expertin mit
@@ -21,17 +21,11 @@ export default function About() {
 
             <p>
               Mein Einstieg in die digitale Bildbearbeitung begann bereits mit
-              der Photoshop Version 2.0 – und ich bin immer noch mit Begeisterung dabei.
-            </p>
-
-            <p>
-              ‘Mach mal schön’ – das ist wohl eines der häufigsten ‘Briefings’, die ich bekomme.
+              der Photoshop Version 2.0.
             </p>
 
             <p>Ein Bild kann sehr viele PiXEL haben – und ich finde sie alle!</p>
-          </div>
-
-          {/* Grauer Platzhalter (Quadrat) */}
+          </div>          {/* Grauer Platzhalter (Quadrat) */}
           <div className="about-placeholder" aria-hidden="true" />
         </section>
       </main>

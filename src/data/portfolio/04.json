@@ -1,12 +1,20 @@
 {
   "id": "04",
   "slug": "projekt-04",
-  "title": "Projekt 04",
-  "year": null,
+  "title": "GDH - Hutträger des Jahres",
   "client": null,
   "roles": [],
-  "tags": [],
-  "text_image": null,
-  "body": [],
-  "credits": {}
+  "tags": ["Auszeichnung", "Fotografie"],
+  "text_image": "01-title.jpg",
+  "body": [
+    "Hutträger 2025: Jan Delay",
+    "Hutträger 2024: Torsten Sträter",
+    "Hutträger 2022: Max Mutzke",
+    "Hutträger 2020: Horst Lichter",
+    "Hutträger 2019: Johannes Oerding",
+    "Hutträger 2018: Massimo Sinató"
+  ],
+  "credits": {
+    "photography": "Sandra Irmler"
+  }
 }

@@ -68,7 +68,7 @@ const ComparisonSlider = ({ beforeSrc, afterSrc }) => {
 
   const onTouchStart = (e) => {
     setIsDragging(true);
-    e.preventDefault();
+    // e.preventDefault(); // Removed to allow vertical scrolling (use touch-action: pan-y in CSS)
     const onMove = (evt) => startPointer(evt.touches[0].clientX);
     const onEnd = () => {
       setIsDragging(false);
@@ -94,20 +94,22 @@ const ComparisonSlider = ({ beforeSrc, afterSrc }) => {
       {/* Unsichtbares Sizer-Image, damit die Box die natürliche Bildhöhe annimmt */}
       <img className="sizer" src={beforeSrc} alt="" aria-hidden="true" />
 
-      {/* Vorher */}
+      {/* Nachher (Layer 1 - Bottom - Right Side) */}
       <div className="image-layer">
-        <img src={beforeSrc} alt="" />
+        <img src={afterSrc} alt="Nachher" />
+        <span className="comparison-label label-after">NACHHER</span>
       </div>
 
-      {/* Nachher (mit Clip) */}
+      {/* Vorher (Layer 2 - Top - Left Side - Clipped) */}
       <div
-        className="image-layer after-layer"
+        className="image-layer top-layer"
         style={{
           clipPath: `inset(0 ${100 - position}% 0 0)`,
           transition: isDragging ? 'none' : 'clip-path 0.1s ease-out'
         }}
       >
-        <img src={afterSrc} alt="" />
+        <img src={beforeSrc} alt="Vorher" />
+        <span className="comparison-label label-before">VORHER</span>
       </div>
 
       {/* Slider Handle */}
@@ -142,34 +144,36 @@ const MakingOf = () => {
 
   return (
     <div className="making-of-container">
-      <div className="header">
-        <h1 className="title">Making Of</h1>
+      <div className="headline">
+        <h2 className="title">Making Of</h2>
       </div>
 
-      {items.map(({ id, beforeName, afterName, meta }) => {
-        const beforeSrc = resolveImage(beforeName);
-        const afterSrc  = resolveImage(afterName);
-        if (!beforeSrc || !afterSrc) {
-          console.warn('[MakingOf] Bild nicht gefunden:', { id, beforeName, afterName });
-          return null;
-        }
+      <div className="making-of-content">
+        {items.map(({ id, beforeName, afterName, meta }) => {
+          const beforeSrc = resolveImage(beforeName);
+          const afterSrc  = resolveImage(afterName);
+          if (!beforeSrc || !afterSrc) {
+            console.warn('[MakingOf] Bild nicht gefunden:', { id, beforeName, afterName });
+            return null;
+          }
 
-        return (
-          <div className="comparison-section" key={id}>
-            <ComparisonSlider beforeSrc={beforeSrc} afterSrc={afterSrc} />
-            {/* Credits aus JSON unter dem Bild */}
-            {meta && (
-              <div className="credits">
-                {meta.client && <span><strong>Kunde:</strong> {meta.client}</span>}
-                {Array.isArray(meta.graphics) && meta.graphics.length > 0 && (
-                  <span><strong>Grafik:</strong> {meta.graphics.join(', ')}</span>
-                )}
-                {meta.photo && <span><strong>Foto:</strong> {meta.photo}</span>}
-              </div>
-            )}
-          </div>
-        );
-      })}
+          return (
+            <div className="comparison-section" key={id}>
+              <ComparisonSlider beforeSrc={beforeSrc} afterSrc={afterSrc} />
+              {/* Credits aus JSON unter dem Bild */}
+              {meta && (
+                <div className="credits">
+                  {meta.client && <span><strong>Kunde:</strong> {meta.client}</span>}
+                  {Array.isArray(meta.graphics) && meta.graphics.length > 0 && (
+                    <span><strong>Grafik:</strong> {meta.graphics.join(', ')}</span>
+                  )}
+                  {meta.photo && <span><strong>Foto:</strong> {meta.photo}</span>}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

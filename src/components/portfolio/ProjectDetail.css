@@ -1,5 +1,6 @@
 .project-detail {
-  padding: clamp(16px, 4vw, 48px);
+  /* Padding now handled by App.css for consistency */
+  /* padding: clamp(16px, 4vw, 48px) var(--global-padding-x); */
 }
 
 .project-header {
@@ -11,10 +12,12 @@
 }
 
 .project-title {
+  /* Font properties now handled by App.css */
+  /* margin: 0; */
+  /* font-size: clamp(28px, 4.4vw, 56px); */
+  /* line-height: 1.05; */
+  /* font-weight: 600; */
   margin: 0;
-  font-size: clamp(28px, 4.4vw, 56px);
-  line-height: 1.05;
-  font-weight: 600;
 }
 
 .project-subtitle {
@@ -43,20 +46,23 @@
   object-fit: cover;
 }
 
+/* Replace your existing .project-gallery block with this */
 .project-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  /* Use a smaller min-width (e.g. 100% or 280px, whichever is smaller) to avoid overflow on tiny screens */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: clamp(12px, 2vw, 20px);
 }
 
+/* Replace your existing .project-gallery img block with this */
 .project-gallery img {
   width: 100%;
   height: auto;
-  border-radius: 12px;
-  max-height: clamp(200px, 42vh, 520px);
-  object-fit: cover;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.06);
+  display: block;
+  border-radius: 0;
+  box-shadow: none;
 }
+
 
 .project-credits {
   margin-top: clamp(24px, 4vw, 48px);

@@ -1,13 +1,16 @@
 /* Let the header define a reusable logo height */
 .litho-header {
-  --logo-max-height: clamp(28px, 6vw, 72px);
+  /* Increased logo size slightly */
+  --logo-max-height: clamp(65px, 10vw, 120px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: clamp(8px, 2vw, 24px) clamp(16px, 4vw, 56px);
+  /* Reduced vertical padding to prevent cutting off content too early */
+  padding: clamp(12px, 2vw, 24px) var(--global-padding-x);
   background-color: #fff;
-  position: relative;
-  z-index: 20;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   margin-bottom: 0;
 }
 
@@ -16,6 +19,10 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  /* Reduced margin for mobile to prevent overflow */
+  margin-right: clamp(0.5rem, 2vw, 2rem);
+  /* Reset margin to 0 to align exactly with page content padding */
+  margin-left: 0;
 }
 
 /* Make the image scale nicely inside the header */
@@ -29,15 +36,18 @@
 
 /* Dot Button */
 .litho-dot {
-  width: clamp(18px, 2vw, 28px);
-  height: clamp(18px, 2vw, 28px);
-  background-color: #e53e3e;
+  /* Match size to the 'O' in the logo (approx 0.65 of logo height) */
+  width: calc(var(--logo-max-height) * 0.65);
+  height: calc(var(--logo-max-height) * 0.65);
+  background-color: rgb(255, 0, 0);
   border-radius: 50%;
   border: none;
   outline: none;
   cursor: pointer;
   position: relative;
   transition: transform 200ms ease, box-shadow 200ms ease;
+  /* Reduced margin for mobile */
+  margin-left: clamp(0.5rem, 2vw, 2rem);
 }
 
 .litho-dot:hover {
@@ -152,23 +162,17 @@
 /* Responsive positioning for menu items */
 @media (max-width: 768px) {
   .litho-menu-items-container {
-    padding-right: 50px;
-    padding-top: clamp(8px, 2vw, 24px);
+    padding-right: 0; 
+    align-items: center; /* Center items on mobile */
+    justify-content: center;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   .litho-menu-item {
-    font-size: clamp(22px, 5vw, 36px);
-    margin: 12px 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .litho-menu-items-container {
-    padding-right: 30px;
-    padding-top: clamp(8px, 2vw, 24px);
-  }
-  .litho-menu-item {
-    font-size: clamp(18px, 6vw, 28px);
-    margin: 10px 0;
+    font-size: clamp(24px, 6vw, 40px);
+    margin: 16px 0;
+    text-align: center;
   }
 }
 
@@ -199,16 +203,19 @@
 /* Responsive design - bigger circles for mobile */
 @media (max-width: 768px) {
   .litho-menu.open {
-    width: 120vw;
-    height: 120vw;
-    transform: translate(-20%, -50%) scale(1);
+    /* Use vmax to cover the largest dimension */
+    width: 250vmax;
+    height: 250vmax;
+    /* Keep centered on the dot */
+    transform: translate(-50%, -50%) scale(1);
+    border-radius: 50%;
   }
   .litho-menu {
-    padding: 50px;
+    padding: 0;
   }
   .litho-menu-close {
-    top: 35px;
-    right: 35px;
+    top: 25px;
+    right: 25px;
     font-size: 38px;
     width: 55px;
     height: 55px;
@@ -216,43 +223,28 @@
 }
 
 @media (max-width: 480px) {
+  /* Ensure it covers even strictly */
   .litho-menu.open {
-    width: 140vw;
-    height: 140vw;
-    transform: translate(-15%, -50%) scale(1);
-  }
-  .litho-menu {
-    padding: 40px;
+    width: 300vmax;
+    height: 300vmax; 
   }
   .litho-menu-close {
-    top: 25px;
-    right: 25px;
+    top: 20px;
+    right: 20px;
     font-size: 32px;
     width: 45px;
     height: 45px;
   }
 }
 
-@media (orientation: portrait) and (max-width: 768px) {
-  .litho-menu.open {
-    width: 130vw;
-    height: 130vw;
-    transform: translate(-18%, -50%) scale(1);
-  }
-}
 
-@media (orientation: landscape) and (max-height: 500px) {
-  .litho-menu.open {
-    width: 150vh;
-    height: 150vh;
-    transform: translate(-30%, -50%) scale(1);
-  }
-  .litho-menu {
-    padding: 40px;
-  }
-}
-
-/* (optional) If you want a smaller logo on very small screens */
+/* (optional) If you want a smaller logo on very small screens - Increased size as requested */
 @media (max-width: 480px) {
-  .litho-header { --logo-max-height: clamp(22px, 7vw, 56px); }
+  .litho-header { --logo-max-height: clamp(50px, 12vw, 80px); }
+  
+  /* Also ensure the dot has a minimum clickable size */
+  .litho-dot {
+    min-width: 40px;
+    min-height: 40px;
+  }
 }

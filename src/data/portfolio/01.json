@@ -1,21 +1,20 @@
 {
   "id": "01",
   "slug": "zett-18",
-  "title": "ZETT – Porträts",
-  "subtitle": "Ausgabe 18 (Auswahl)",
-  "year": 2024,
-  "client": "Zürcher Hochschule der Künste (ZHdK)",
-  "roles": ["Fotografie", "Porträt"],
+  "title": "ZETT Magazin 18",
+  "client": "Zürcher Hochschule der Künste",
+  "roles": [],
   "tags": ["Magazin", "Editorial", "ZHdK"],
   "pdf": "01.pdf",
   "text_image": "01-title.jpg",
   "body": [
-    "Ausgewählte Porträts für das ZHdK-Magazin ZETT.",
-    "Abgebildet u. a.: Caja Peters, Kilian Brandscherdt, Florence Nguyen."
+    "Dies ist meine 30. Ausgabe, in der ich die Bildbearbeitung aller Fotos übernehme. Das Hochschulmagazin erzählt spannende Geschichten aus dem vielfältigen Kosmos der ZHdK. Es beinhaltet zahlreiche Porträtaufnahmen von Studierenden und Dozierenden sowie redaktionelle Bilder. In enger Abstimmung mit Fotograf und Grafiker führe ich Retuschen, Farbkorrekturen, Farbanpassungen aus sowie die finale Profilierung der Bilder für Web und Print.",
+    "LiTHO"
   ],
   "credits": {
-    "photography": "Guillaume Musset",
-    "editorial": "ZETT Redaktion",
-    "copyright": "© ZHdK / Urheber*innen"
+    "photography": "Guillame Musset",
+    "graphic": "Samuel Marty",
+    "copyright": "zhdk.ch",
+    "paper": "Lessebo Bright Rough"
   }
 }

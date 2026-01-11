@@ -118,18 +118,17 @@ const ContactPage = () => {
 
         <div className="contact-content">
           <div className="contact-info">
-            <h3>Let's Connect</h3>
-            <p>Feel free to reach out for collaborations or just to say hi!</p>
+            <p>Haben Sie Fragen oder möchten Sie zusammenarbeiten? Zögern Sie nicht, eine Nachricht zu hinterlassen und ich werde mich baldmöglichst melden.</p>
 
             <div className="contact-details">
               <div className="contact-item">
                 <FaEnvelope className="contact-icon" />
-                <span>kontakt@litho.ch</span>
+                <span> kontakt@litho.ch</span>
               </div>
 
               <div className="contact-item">
                 <FaMapMarkerAlt className="contact-icon" />
-                <span>Rita Lehnert, Malvenstrasse 12, 8057 Zürich</span>
+                <span> Rita Lehnert, Malvenstrasse 12, 8057 Zürich</span>
               </div>
             </div>
           </div>
@@ -149,13 +148,13 @@ const ContactPage = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  placeholder="Your name"
+                  placeholder="Dein Name"
                   disabled={timerActive}
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">E-Mail</label>
                 <input
                   type="email"
                   id="email"
@@ -163,13 +162,13 @@ const ContactPage = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  placeholder="Your email"
+                  placeholder="Deine E-Mail"
                   disabled={timerActive}
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="subject">Subject</label>
+                <label htmlFor="subject">Betreff</label>
                 <input
                   type="text"
                   id="subject"
@@ -177,13 +176,13 @@ const ContactPage = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  placeholder="Subject"
+                  placeholder="Betreff"
                   disabled={timerActive}
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="message">Message</label>
+                <label htmlFor="message">Nachricht</label>
                 <div className="textarea-wrapper">
                   <textarea
                     id="message"
@@ -191,7 +190,7 @@ const ContactPage = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    placeholder="Your message"
+                    placeholder="Deine Nachricht"
                     rows="6"
                     maxLength="500"
                     disabled={timerActive}
@@ -212,19 +211,19 @@ const ContactPage = () => {
                   className={`submit-button ${isSubmitting ? 'submitting' : ''}`}
                   disabled={isSubmitting || timerActive}
                 >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                  {isSubmitting ? 'Sende...' : 'Nachricht senden'}
                 </button>
               )}
 
               {submitStatus === 'success' && (
                 <div className="form-status success">
-                  Message sent successfully! I'll get back to you soon.
+                  Nachricht erfolgreich gesendet! Ich melde mich bald bei dir.
                 </div>
               )}
 
               {submitStatus === 'error' && (
                 <div className="form-status error">
-                  There was an error sending your message. Please try again.
+                  Es gab einen Fehler beim Senden deiner Nachricht. Bitte versuche es erneut.
                 </div>
               )}
 

@@ -1,19 +1,20 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Header.css";
 import logo from "../assets/header-logo.png";
 
 const menuItems = [
-  { label: "HOME", path: "/" },
-  { label: "SERVICE", path: "/service" },
-  { label: "PORTFOLIO", path: "/portfolio" },
-  { label: "MAKING OF", path: "/making-of" },
-  { label: "ABOUT", path: "/about" },
-  { label: "KONTAKT", path: "/kontakt" },
+  { label: "HOME", id: "home" },
+  { label: "SERVICE", id: "service" },
+  { label: "PORTFOLIO", id: "portfolio" },
+  { label: "MAKING OF", id: "making-of" },
+  { label: "ABOUT", id: "about" },
+  { label: "KONTAKT", id: "kontakt" },
 ];
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const dotRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuPosition, setMenuPosition] = useState({ top: '50%', left: '50%' });
@@ -75,12 +76,37 @@ const Header = () => {
   };
 
   const handleMenuItemClick = (item) => {
-    navigate(item.path);
+    const scrollToTarget = (targetId) => {
+      const el = document.getElementById(targetId);
+      if (el) {
+        const headerOffset = 150; // Offset to ensuring title is not hidden behind header
+        const elementPosition = el.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    };
+
+    if (document.getElementById(item.id)) {
+        scrollToTarget(item.id);
+    } else {
+        navigate('/');
+        // Delayed scroll attempt for when page loads
+        setTimeout(() => {
+             scrollToTarget(item.id);
+        }, 300);
+    }
     closeMenu();
   };
 
   const handleLogoClick = () => {
     navigate('/');
+    setTimeout(() => {
+         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
   };
 
   return (

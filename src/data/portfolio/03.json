@@ -1,12 +1,13 @@
 {
   "id": "03",
   "slug": "projekt-03",
-  "title": "Projekt 03",
-  "year": null,
-  "client": null,
+  "title": "Aichinger² Zahnärzte",
+  "client": "Praxis",
   "roles": [],
-  "tags": [],
-  "text_image": null,
+  "tags": ["Praxis"],
+  "text_image": "01-title.jpg",
   "body": [],
-  "credits": {}
+  "credits": {
+    "photography": "Sandra Irmler"
+  }
 }

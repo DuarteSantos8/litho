@@ -1,12 +1,20 @@
 {
   "id": "10",
   "slug": "projekt-10",
-  "title": "Projekt 10",
-  "year": null,
+  "title": "Zürcher Hochschule der Künste",
+  "subtitle": "Jahresbericht 2019",
   "client": null,
   "roles": [],
-  "tags": [],
-  "text_image": null,
-  "body": [],
-  "credits": {}
+  "tags": ["Jahresbericht", "ZHdK"],
+  "text_image": "01-title.jpg",
+  "body": [
+    "Das Papier wurde im Vorfeld mehrfach mit Weiß bedruckt – allerdings nicht vollflächig. Die dunklen, schwarzen Bildbereiche blieben dabei ausgespart, da sie direkt auf das schwarze Papier gedruckt werden sollten."
+  ],
+  "credits": {
+    "photography": "Betty Fleck @ZHdK",
+    "graphic": "Samuel Marty",
+    "product_photo": "Samuel Marty",
+    "paper": "Sirio color negro",
+    "feature": "Die Bilder drucken auf schwarzem Papier"
+  }
 }

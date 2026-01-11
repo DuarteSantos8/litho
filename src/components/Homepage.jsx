@@ -1,154 +1,81 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './Homepage.css';
 
-const Homepage = () => {
-  const navigate = useNavigate();
+const Homepage = ({ onComplete }) => {
   const [isAnimated, setIsAnimated] = useState(false);
-  const [animationComplete, setAnimationComplete] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [menuPosition, setMenuPosition] = useState({ top: '50%', left: '50%' });
-  const [menuSize, setMenuSize] = useState({ width: 0, height: 0 });
+  const [isExpanded, setIsExpanded] = useState(false);
   const dotRef = useRef(null);
-  const oRef = useRef(null);
-
-  const menuItems = [
-    { label: 'HOME', path: '/' },
-    { label: 'SERVICE', path: '/service' },
-    { label: 'PORTFOLIO', path: '/portfolio' },
-    { label: 'MAKING OF', path: '/making-of' },
-    { label: 'ABOUT', path: '/about' },
-    { label: 'KONTAKT', path: '/kontakt' }
-  ];
-
+  const [expandPos, setExpandPos] = useState({ top: '50%', left: '50%' });
+  
   // Trigger initial animation
   useEffect(() => {
+    // 1. Start Animation L!THO
     const timer1 = setTimeout(() => {
       setIsAnimated(true);
+
+      // 2. Expand Circle
       const timer2 = setTimeout(() => {
-        setAnimationComplete(true);
-        // Position nach der Animation einmal setzen
-        calculateMenuPosition();
-      }, 600);
+        // Calculate dot position for expansion origin
+        if (dotRef.current) {
+           const rect = dotRef.current.getBoundingClientRect();
+           setExpandPos({
+               top: `${rect.top + rect.height / 2}px`,
+               left: `${rect.left + rect.width / 2}px`
+           });
+        }
+
+        setIsExpanded(true);
+
+        // 3. Complete and switch to Main Page
+        const timer3 = setTimeout(() => {
+            if (onComplete) {
+                onComplete();
+            }
+        }, 800); // Wait for expansion transition
+        return () => clearTimeout(timer3);
+
+      }, 800); // Wait for drop animation
       return () => clearTimeout(timer2);
-    }, 1000);
+
+    }, 1000); // Initial delay
 
     return () => clearTimeout(timer1);
-  }, []);
-
-  // Position bei Window Resize aktualisieren
-  useEffect(() => {
-    const handleResize = () => {
-      if (animationComplete) {
-        calculateMenuPosition();
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [animationComplete]);
-
-  const calculateMenuPosition = () => {
-    if (dotRef.current && oRef.current) {
-      const dotRect = dotRef.current.getBoundingClientRect();
-      const oRect = oRef.current.getBoundingClientRect();
-      
-      const centerX = dotRect.left + dotRect.width / 2;
-      const centerY = dotRect.top + dotRect.height / 2;
-      
-      // Menu height matches O height, width is auto-proportional
-      const height = oRect.height;
-      const width = height; // Keep it circular
-      
-      setMenuPosition({
-        top: `${centerY}px`,
-        left: `${centerX}px`
-      });
-      
-      setMenuSize({
-        width: width,
-        height: height
-      });
-    }
-  };
-
-  const handleDotClick = (e) => {
-    e.stopPropagation();
-    if (!animationComplete) return;
-    
-    // Position nochmal vor dem Öffnen aktualisieren (für den Fall, dass sich etwas geändert hat)
-    if (!menuOpen) {
-      calculateMenuPosition();
-      // Kurz warten, damit die Position gesetzt wird, bevor das Menü öffnet
-      requestAnimationFrame(() => {
-        setMenuOpen(true);
-      });
-    } else {
-      setMenuOpen(false);
-    }
-  };
-
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
-
-  const handleMenuItemClick = (item) => {
-    console.log('Navigating to:', item.path);
-    navigate(item.path);
-    closeMenu();
-  };
+  }, [onComplete]);
 
   return (
     <div className="litho-container">
-      {/* Overlay */}
-      <div 
-        className={`overlay ${menuOpen ? 'active' : ''}`}
-        onClick={closeMenu}
-      />
-
-      {/* Main Splash */}
-      <div 
-        className={`splash ${isAnimated ? 'animate' : ''}`}
-      >
-        <span className="letter">L</span>
-        
-        {/* Custom I with dot */}
+      <div className={`splash ${isAnimated ? 'animate' : ''}`}>
+        <div className="letter">L</div>
         <div className="i-container">
-          <div className={`i-stem ${isAnimated ? 'animate' : ''}`} />
+          <div className={`i-stem ${isAnimated ? 'animate' : ''}`}></div>
           <div 
-            ref={dotRef}
-            className={`i-dot ${isAnimated ? 'animate' : ''} ${menuOpen ? 'menu-active' : ''}`}
-            onClick={handleDotClick}
-          />
+            ref={dotRef} 
+            className={`i-dot ${isAnimated ? 'animate' : ''}`}
+            style={{ opacity: isExpanded ? 0 : 1 }}
+          ></div>
         </div>
-        
-        <span className="letter">T</span>
-        <span className="letter">H</span>
-        <span className="letter" ref={oRef}>O</span>
+        <div className="letter">T</div>
+        <div className="letter">H</div>
+        <div className="letter">O</div>
       </div>
 
-      {/* Menu */}
+      {/* Expansion Circle */}
       <div 
-        className={`menu ${menuOpen ? 'open' : ''}`}
+        className="expansion-circle"
         style={{
-          top: menuPosition.top,
-          left: menuPosition.left,
-          width: `${menuSize.width}px`,
-          height: `${menuSize.height}px`
+            position: 'fixed',
+            top: expandPos.top,
+            left: expandPos.left,
+            width: '20px',
+            height: '20px',
+            background: '#C94035',
+            borderRadius: '50%',
+            transform: `translate(-50%, -50%) scale(${isExpanded ? 150 : 0})`,
+            transition: 'transform 800ms cubic-bezier(0.86, 0, 0.07, 1)',
+            zIndex: 15,
+            pointerEvents: 'none'
         }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Menu items */}
-        {menuItems.map((item, index) => (
-          <div
-            key={index}
-            className="menu-item"
-            onClick={() => handleMenuItemClick(item)}
-          >
-            {item.label}
-          </div>
-        ))}
-      </div>
+      />
     </div>
   );
 };

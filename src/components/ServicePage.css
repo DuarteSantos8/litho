@@ -1,56 +1,17 @@
 /* Page */
 .service-page {
-  padding: clamp(8px, 2vw, 24px) clamp(16px, 4vw, 56px);
-  background: #fff;
-  text-align: left;
-  font-family: "mundial-narrow-variable", sans-serif !important;
-  font-variation-settings: 'wght' 400 !important;
-  font-weight: 400 !important;
+  /* Common styles moved to App.css */
 }
 
-/* Headline wie Portfolio und About */
-.headline {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: clamp(10px, 2vw, 16px);
-  flex-wrap: wrap;
-}
-
-.title {
-  font-family: "mundial-narrow-variable", sans-serif !important;
-  font-variation-settings: 'wght' 100 !important;
-  font-size: clamp(32px, 8vw, 96px) !important;
-  font-size: clamp(32px, 8vw, 96px) !important;
-  font-weight: 100 !important;
-  line-height: 1.05;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin: 0;
-  color: #666;
-}
+/* Headline styles moved to App.css */
 
 /* Content */
 .service-content {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  align-items: start;
-  justify-items: start;
-  gap: clamp(24px, 6vw, 72px);
-  margin-top: clamp(16px, 3vw, 40px);
+   /* Grid styles moved to App.css */
 }
 
 .service-text {
-  max-width: 68ch;
-  font-family: "mundial-narrow-variable", sans-serif;
-  font-variation-settings: 'wght' var(--wght-body);
-  font-size: clamp(16px, 1.2vw, 22px);
-  line-height: 1.6;
-  color: #111;
-}
-
-.service-text p {
-  margin: 0 0 1.2em;
+  /* Text styles moved to App.css */
 }
 
 .service-quote {
@@ -96,12 +57,10 @@
 
 /* Responsiv */
 @media (max-width: 1024px) {
-  .service-content {
-    grid-template-columns: 1fr;
-    margin-top: clamp(16px, 3vw, 32px);
-  }
+    /* Grid media query moved to App.css */
+}
   
   .service-list {
     margin-top: 2em;
   }
-}
+

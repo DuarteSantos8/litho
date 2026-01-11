@@ -50,7 +50,10 @@ const ProjectDetail = () => {
     <div className="project-detail">
       <header className="project-header">
         <div className="header-left">
-          <h1 className="project-title">{meta.title}</h1>
+          {/* Wrap Title in similar structure if desired, or just use class */}
+          <div className="headline" style={{ marginBottom: 0 }}>
+             <h1 className="title" style={{ width: '100%' }}>{meta.title}</h1>
+          </div>
           {meta.subtitle && <p className="project-subtitle">{meta.subtitle}</p>}
           <ul className="project-facts">
             {meta.client && <li><strong>Auftraggeber:</strong> {meta.client}</li>}

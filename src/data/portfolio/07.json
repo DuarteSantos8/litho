@@ -1,12 +1,11 @@
 {
   "id": "07",
   "slug": "projekt-07",
-  "title": "Projekt 07",
-  "year": null,
+  "title": "Museum für Gestaltung",
   "client": null,
   "roles": [],
-  "tags": [],
-  "text_image": null,
+  "tags": ["Museum"],
+  "text_image": "01-title.jpg",
   "body": [],
   "credits": {}
 }

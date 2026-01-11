@@ -1,12 +1,14 @@
 {
   "id": "08",
   "slug": "projekt-08",
-  "title": "Projekt 08",
-  "year": null,
+  "title": "Fotobuch „Guinea im Rückblick“",
+  "subtitle": "von Jakob Marty",
   "client": null,
   "roles": [],
-  "tags": [],
-  "text_image": null,
+  "tags": ["Buch", "Fotografie"],
+  "text_image": "01-title.jpg",
   "body": [],
-  "credits": {}
+  "credits": {
+    "photography": "Jakob Marty"
+  }
 }

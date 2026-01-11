@@ -1,44 +1,39 @@
 /* ========== Layout / Grundstruktur ========== */
 
+/* making-of-container styling is handled in App.css (padding, etc.) */
 .making-of-container {
   min-height: 100vh;
-  padding: 0;
   margin: 0;
 }
 
+.making-of-content {
+  margin-top: clamp(16px, 3vw, 40px);
+}
+
+/* Header class seems unused or redundant if App.css handles global padding */
 .header {
   background-color: white;
-  padding: 20px clamp(16px, 4vw, 56px);
+  padding: 0; 
 }
 
-.headline {
-  display: flex;
-  align-items: baseline;
-  gap: clamp(10px, 2vw, 16px);
-  flex-wrap: wrap;
-}
-
-.title {
-  text-align: left;
-  font-size: clamp(24px, 5vw, 64px);
-  line-height: 1.05;
-  margin: 0;
-  font-weight: 400;
-  color: #666;
-}
+/* Headline moved to App.css */
+/* Title moved to App.css */
 
 .comparison-section {
   max-width: 1200px;
+  /* Removed horizontal padding on section because it's handled by container .making-of-container in App.css */
   margin: 0 auto 80px auto;
-  padding: 0 20px;
+  padding: 0;
 }
 
 .credits {
   text-align: center;
+  margin-top: 3rem;
   margin-bottom: 60px;
   color: #6c757d;
   font-size: 0.9rem;
-  padding: 0 20px;
+  /* Padding removed to match container alignment */
+  padding: 0;
 }
 
 .credits span {
@@ -64,6 +59,7 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  touch-action: pan-y; /* Allow vertical scroll, handle horizontal in JS */
 }
 
 /* Unsichtbares Sizer-Image, gibt die natürliche Höhe vor */
@@ -79,6 +75,7 @@
   position: absolute;
   inset: 0;               /* top/right/bottom/left: 0 */
   overflow: hidden;
+  z-index: 1;             /* Ensure strictly defined stacking context */
 }
 
 .image-layer img {
@@ -91,17 +88,38 @@
   background: #fff;        /* weiße Ränder bei Letterboxing */
 }
 
-.after-layer {
+.top-layer {
   z-index: 2;
 }
 
 /* Labels */
-.image-label {
+.comparison-label {
   position: absolute;
-  top: 20px;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 3;
-  background: rgba(255, 255, 255, 0.9);
-  color: #6c757d;
+  background: #fff;
+  color: #000;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  pointer-events: none; 
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  letter-spacing: 0.05em;
+}
+
+.label-before {
+  left: 30px;
+}
+
+.label-after {
+  right: 30px;
+}
+
+/* Alte .image-label entfernen falls vorhanden */
+.image-label {
+  display: none;
   font-weight: 600;
   font-size: 0.85rem;
   padding: 8px 14px;
@@ -162,10 +180,7 @@
 /* ========== Responsive ========== */
 
 @media (max-width: 768px) {
-  .title {
-    font-size: 2.5rem;
-    padding: 0 20px;
-  }
+  /* Title removed */
 
   .credits {
     font-size: 0.8rem;
@@ -192,13 +207,8 @@
 }
 
 @media (max-width: 480px) {
-  .header {
-    padding: 30px 0;
-  }
-
-  .title {
-    font-size: 2rem;
-  }
+  /* Header padding removed */
+  /* Title size removed */
 
   .image-label {
     font-size: 0.7rem;
@@ -208,4 +218,10 @@
 
   .before-label { left: 15px; }
   .after-label  { right: 15px; }
+}
+@media (max-width: 768px) {
+  .comparison-label {
+    padding: 2px 4px;
+    font-size: 0.5rem;
+  }
 }

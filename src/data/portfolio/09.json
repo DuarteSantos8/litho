@@ -1,12 +1,14 @@
 {
   "id": "09",
   "slug": "projekt-09",
-  "title": "Projekt 09",
-  "year": null,
+  "title": "Schriftenfächer",
   "client": null,
   "roles": [],
-  "tags": [],
-  "text_image": null,
+  "tags": ["Typografie", "Design"],
+  "text_image": "01-title.jpg",
   "body": [],
-  "credits": {}
+  "credits": {
+    "graphic": "Samuel Marty und Richard Frick",
+    "website": "www.schriftenfaecher.ch"
+  }
 }

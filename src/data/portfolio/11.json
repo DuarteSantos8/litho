@@ -1,12 +1,20 @@
 {
   "id": "11",
   "slug": "projekt-11",
-  "title": "Projekt 11",
-  "year": null,
+  "title": "Taschenverlag - über Fröbus GmbH",
   "client": null,
   "roles": [],
-  "tags": [],
-  "text_image": null,
-  "body": [],
-  "credits": {}
+  "tags": ["Buch", "Verlag", "Taschen"],
+  "text_image": "01-title.jpg",
+  "body": [
+    "Gesamtverantwortung für die Bild- und Layoutproduktion dieses Buchobjekts:",
+    "• Digitalisierung und Korrektur sämtlicher Vorlagen",
+    "• Umsetzung des Layouts nach Vorgaben von Christo",
+    "• Erstellung von Proofs sowie Abstimmung und Freigabeprozesse mit der Verlagsherstellung",
+    "• Bildkorrekturen nach Bedarf und finale Druck PDF Erstellung",
+    "Das Werk umfasst über 100 Zeichnungen/Collagen, über 1000 Fotos und 968 Seiten."
+  ],
+  "credits": {
+    "photography": "Wolfgang Volz"
+  }
 }

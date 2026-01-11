@@ -1,7 +1,7 @@
 [
   {
     "id": "01",
-    "slug": "projekt-01",
+    "slug": "zett-18",
     "title": "ZETT Magazin 18",
     "year": 2025,
     "cover": "01-cover.jpg"
@@ -73,6 +73,13 @@
     "id": "11",
     "slug": "projekt-11",
     "title": "Taschenverlag",
+    "year": "2025",
+    "cover": "01-cover.jpg"
+  },
+  {
+    "id": "12",
+    "slug": "basketballer",
+    "title": "Basketballer",
     "year": "2025",
     "cover": "01-cover.jpg"
   }

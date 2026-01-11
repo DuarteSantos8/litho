@@ -1,12 +1,16 @@
 {
   "id": "06",
   "slug": "projekt-06",
-  "title": "Projekt 06",
-  "year": null,
+  "title": "Theater Casino Zug",
   "client": null,
   "roles": [],
-  "tags": [],
-  "text_image": null,
+  "tags": ["Theater", "Kultur"],
+  "text_image": ["01-title-01.jpg", "01-title-02.jpg"],
   "body": [],
-  "credits": {}
+  "credits": {
+    "photography": "Rita Palanikumar",
+    "website": "www.palanikumar.ch",
+    "graphic": "Melanie Lindner, Céline Odermatt",
+    "paper": "Umschlag: Incada Silk weiss, Inhalt: Z-Off set"
+  }
 }

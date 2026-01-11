@@ -1,12 +1,17 @@
 {
   "id": "02",
   "slug": "projekt-02",
-  "title": "Projekt 02",
-  "year": null,
-  "client": null,
+  "title": "Fotoatelier Wolgensinger – Mit vier Augen",
+  "client": "Museum für Gestaltung",
   "roles": [],
-  "tags": [],
-  "text_image": null,
-  "body": [],
-  "credits": {}
+  "tags": ["Ausstellung", "Fotografie"],
+  "text_image": "01-title.jpg",
+  "body": [
+    "Für diese Fotoausttellung habe ich 86 Fotografien aus unterschiedlichen Archiven überarbeitet. Dazu gehört die Anpassung, Retusche sowie die Erstellung druckfertiger PDFs in den gewünschten Formaten. Die Ausstellung zeigt ihr Gesamtwerk - von gerahmten Original­aufnahmen über die aufgezogenen Reproduktionen bis hin zu Experimentalfilmen."
+  ],
+  "credits": {
+    "copyright": "Balz Strasser, Evilard",
+    "print": "Inkjet auf Fototapete",
+    "website": "www.fotoatelier-wolgensinger.ch"
+  }
 }

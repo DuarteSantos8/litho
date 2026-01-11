@@ -45,17 +45,44 @@ export default function ProjectDetailCarousel() {
   const slides = useMemo(() => {
     if (!meta) return [];
     const cover = resolveAsset(meta.id, '01-cover.jpg');
-    const textImgName = meta.text_image || '01-title.jpg';
-    const textImg = resolveAsset(meta.id, textImgName) || resolveAsset(meta.id, '01.jpg');
+    
+    // Handle text_image being a string or an array
+    const textImgNames = Array.isArray(meta.text_image) 
+      ? meta.text_image 
+      : [meta.text_image || '01-title.jpg'];
+      
+    // Resolve one or multiple intro images
+    let introImages = textImgNames
+      .map(name => resolveAsset(meta.id, name))
+      .filter(Boolean);
 
-    // Galerie-Bilder >= 02.jpg (ohne cover & ohne 01-title/01.jpg)
+    // Flashback to 01.jpg if nothing found
+    if (introImages.length === 0) {
+      const fallback = resolveAsset(meta.id, '01.jpg');
+      if (fallback) introImages = [fallback];
+    }
+
+    // Galerie-Bilder >= 02.jpg (ohne cover & ohne text images)
     const galleryFiles = all.filter((name) => {
+      // Exclude cover
       if (/^01-cover\./i.test(name)) return false;
-      if (meta.text_image && name.toLowerCase() === meta.text_image.toLowerCase()) return false;
+      
+      // Exclude explicitly defined text images
+      if (meta.text_image) {
+        if (Array.isArray(meta.text_image)) {
+           if (meta.text_image.some(t => t.toLowerCase() === name.toLowerCase())) return false;
+        } else {
+           if (name.toLowerCase() === meta.text_image.toLowerCase()) return false;
+        }
+      } 
+      
+      // Exclude default text images if not defined
       if (!meta.text_image && /^01(-title)?\./i.test(name)) return false;
+
       const m = name.match(/^(\d+)/);
       return m && Number(m[1]) >= 2;
     });
+
     const gallery = galleryFiles.map((name) => ({
       type: 'image',
       src: resolveAsset(meta.id, name),
@@ -64,7 +91,8 @@ export default function ProjectDetailCarousel() {
 
     const arr = [];
     if (cover) arr.push({ type: 'cover', src: cover, key: 'cover' });
-    arr.push({ type: 'intro', img: textImg, key: 'intro' });
+    // Pass 'imgs' array instead of single 'img'
+    arr.push({ type: 'intro', imgs: introImages, key: 'intro' });
     return [...arr, ...gallery];
   }, [meta, all]);
 
@@ -108,11 +136,17 @@ export default function ProjectDetailCarousel() {
   return (
     <div className="proj-slider">
       <div className="proj-head">
-        <Link to="/portfolio" className="back">← Zurück</Link>
-        <div className="title">
-          <h1>{meta.title}</h1>
-          {meta.subtitle && <p>{meta.subtitle}</p>}
-        </div>
+        <Link 
+          to="/#portfolio" 
+          state={{ skipSplash: true }}
+          className="back-arrow" 
+          aria-label="Zurück"
+        >
+            <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </Link>
         <div className="pager">{slides.length ? index + 1 : 0} / {slides.length}</div>
       </div>
 
@@ -126,8 +160,16 @@ export default function ProjectDetailCarousel() {
           <Slide slide={slides[index]} meta={meta} />
         )}
 
-        <button className="nav prev" onClick={prev} aria-label="Vorherige" disabled={index === 0}>‹</button>
-        <button className="nav next" onClick={next} aria-label="Nächste" disabled={index === slides.length - 1}>›</button>
+        <button className="nav prev" onClick={prev} aria-label="Vorherige" disabled={index === 0}>
+           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+           </svg>
+        </button>
+        <button className="nav next" onClick={next} aria-label="Nächste" disabled={index === slides.length - 1}>
+           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+           </svg>
+        </button>
       </div>
     </div>
   );
@@ -148,8 +190,22 @@ function Slide({ slide, meta }) {
       <div className="slide slide-intro">
         <div className="intro-wrap">
           <div className="intro-text">
+            <h2 className="intro-title">{meta.title}</h2>
             <ul className="facts">
-              {meta.client && <li><strong>Auftraggeber:</strong> {meta.client}</li>}
+              {meta.client && <li className="client">{meta.client}</li>}
+              {/* Credits / Custom Fields */}
+              {meta.credits && (
+                <>
+                  {meta.credits.photography && <li><strong>Foto:</strong> {meta.credits.photography}</li>}
+                  {meta.credits.graphic && <li><strong>Grafik:</strong> {meta.credits.graphic}</li>}
+                  {meta.credits.copyright && <li><strong>©</strong> {meta.credits.copyright}</li>}
+                  {meta.credits.product_photo && <li><strong>Produktfotos:</strong> {meta.credits.product_photo}</li>}
+                  {meta.credits.paper && <li><strong>Papier:</strong> {meta.credits.paper}</li>}
+                  {meta.credits.feature && <li><strong>Besonderheit:</strong> {meta.credits.feature}</li>}
+                  {meta.credits.print && <li><strong>Druck:</strong> {meta.credits.print}</li>}
+                  {meta.credits.website && <li><a href={`https://${meta.credits.website.replace(/^https?:\/\//, '')}`} target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>{meta.credits.website}</a></li>}
+                </>
+              )}
               {meta.year && <li><strong>Jahr:</strong> {meta.year}</li>}
               {Array.isArray(meta.roles) && meta.roles.length > 0 && (
                 <li><strong>Rolle:</strong> {meta.roles.join(', ')}</li>
@@ -161,9 +217,13 @@ function Slide({ slide, meta }) {
               </div>
             )}
           </div>
-          {slide.img && (
-            <div className="intro-image">
-              <img src={slide.img} alt="" />
+          {slide.imgs && slide.imgs.length > 0 && (
+            <div className={`intro-images count-${slide.imgs.length}`}>
+              {slide.imgs.map((src, i) => (
+                <div className="intro-image-item" key={i}>
+                   <img src={src} alt="" />
+                </div>
+              ))}
             </div>
           )}
         </div>
