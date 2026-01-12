@@ -68,7 +68,7 @@ const Homepage = ({ onComplete }) => {
             left: expandPos.left,
             width: '20px',
             height: '20px',
-            background: '#C94035',
+            background: '#ff0000',
             borderRadius: '50%',
             transform: `translate(-50%, -50%) scale(${isExpanded ? 150 : 0})`,
             transition: 'transform 800ms cubic-bezier(0.86, 0, 0.07, 1)',

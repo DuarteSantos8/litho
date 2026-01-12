@@ -22,7 +22,7 @@ img, video, iframe {
 
 body {
   font-family: "mundial-narrow-variable", sans-serif;
-  font-variation-settings: 'wght' 400;
+  font-variation-settings: 'wght' 100;
   color: #111;
   background-color: #ffffff;
 }
@@ -37,9 +37,8 @@ body {
 .making-of-container,
 .contact-section,
 .project-detail {
-  /* Increased top padding for better title spacing on mobile */
-  /* Consistent padding for ALL detailed pages including Project Detail */
-  padding: clamp(40px, 6vw, 60px) var(--global-padding-x) clamp(24px, 4vw, 48px);
+  /* Reduced top padding */
+  padding: clamp(10px, 2vw, 20px) var(--global-padding-x) clamp(24px, 4vw, 48px);
   background: #fff;
   text-align: left;
   /* Ensure consistent baseline */
