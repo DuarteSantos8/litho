@@ -7,11 +7,11 @@ const Home = () => {
     <>
       <Header />
       <main className="home-page">
+        <div className="headline">
+          <h2 className="title">Rita Lehnert-Bildbearbeitung</h2>
+        </div>
         <div className="home-content">
           <div className="home-left">
-            <div className="headline">
-              <h2 className="title">Rita Lehnert-Bildbearbeitung</h2>
-            </div>
             <div className="home-description">
               <p>
                 Mit einem Blick fürs Detail, kreativen Ideen und präziser Bearbeitung wird das Beste aus Ihren Aufnahmen heraus geholt.

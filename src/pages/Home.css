@@ -1,8 +1,10 @@
 .home-page {
   min-height: calc(100vh - 100px);
-  /* Padding managed by App.css universally now, except possibly bottom */
-  /* padding: clamp(24px, 4vw, 48px) var(--global-padding-x) clamp(24px, 4vw, 48px); */
+  /* Force padding to match Header exactly */
+  padding-top: clamp(10px, 2vw, 20px);
+  padding-right: var(--global-padding-x);
   padding-bottom: clamp(24px, 4vw, 48px);
+  padding-left: var(--global-padding-x);
   background: #fff;
   text-align: left;
 }
@@ -13,13 +15,21 @@
   gap: clamp(3rem, 6vw, 8rem);
   align-items: start;
   padding-top: 0;
+  margin-left: 0;
+  padding-left: 0;
 }
 
 /* Linke Spalte */
 .home-left {
   display: flex;
   flex-direction: column;
-  gap: clamp(2rem, 4vw, 3rem);
+  /* Removed top gap since Headline is outside */
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-left: 0;
+  padding-left: 0;
+  margin-top: 0;
+  padding-top: 0;
+  width: 100%;
 }
 
 .headline {
@@ -28,8 +38,9 @@
   justify-content: flex-start;
   gap: clamp(10px, 2vw, 16px);
   flex-wrap: wrap;
-  margin-bottom: 0;
   width: 100%;
+  margin-left: 0;
+  padding-left: 0;
 }
 
 /* Title styles removed to inherit from App.css */
@@ -39,6 +50,8 @@
   display: flex;
   flex-direction: column;
   gap: 1em;
+  margin: 0;
+  padding: 0;
 }
 
 .home-description p {
@@ -49,6 +62,7 @@
   line-height: 1.6;
   color: #111;
   margin: 0;
+  padding: 0;
 }
 
 /* Rechte Spalte - Großer Slogan */
@@ -57,16 +71,23 @@
   align-items: flex-start;
   justify-content: flex-start;
   padding-left: clamp(1rem, 3vw, 2rem);
-  padding-top: clamp(0rem, 1vw, 1rem);
+  /* Removed top padding to align with left text */
+  padding-top: 0;
 }
 
 .home-slogan {
   font-family: "mundial-narrow-variable", sans-serif;
-  font-variation-settings: 'wght' 900;
-  font-size: clamp(2.5rem, 5.5vw, 5.2rem);
+  /* Thinner weight (was 900) */
+  font-variation-settings: 'wght' 300;
+  /* Increased size (was 2.5rem - 5.5vw - 5.2rem) */
+  font-size: clamp(3rem, 8vw, 7rem);
   color: #000000;
-  margin: 0;
-  line-height: 1.15;
+  /* Negative margin to visually align the text cap-height with the left column text */
+  margin-top: -0.22em;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  line-height: 1;
   letter-spacing: -0.01em;
 }
 

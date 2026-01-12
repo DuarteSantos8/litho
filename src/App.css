@@ -53,7 +53,8 @@ body {
   justify-content: flex-start;
   gap: clamp(10px, 2vw, 16px);
   flex-wrap: wrap;
-  margin-bottom: clamp(12px, 2vw, 24px);
+  /* Increased margin for better separation from content */
+  margin-bottom: clamp(32px, 5vw, 64px);
   width: 100%;
 }
 

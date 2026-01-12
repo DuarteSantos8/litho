@@ -15,9 +15,8 @@
 .section-title {
   /* Inherits global h2 styles */
   margin: 0;
-  /* Optical alignment: Large typography often needs a slight nudge left 
-     to align visually with block elements/images below */
-  margin-left: -0.06em; 
+  /* Removed optical alignment negative margin to ensure strict pixel alignment with other pages */
+  margin-left: 0; 
 }
 
 /* Content Layout */

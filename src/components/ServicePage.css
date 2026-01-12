@@ -59,8 +59,7 @@
 @media (max-width: 1024px) {
     /* Grid media query moved to App.css */
 }
-  
-  .service-list {
-    margin-top: 2em;
-  }
+
+/* Removed extra margin that caused misalignment on desktop */
+
 
